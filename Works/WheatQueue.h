@@ -1,5 +1,7 @@
-#include "./WorkProvider.h"
+#ifndef WHEAT_QUEUE_H_
+#define WHEAT_QUEUE_H_
 #include <mutex>
+#include "./WorkProvider.h"
 
 
 
@@ -9,8 +11,10 @@ class WheatQueue {
     public:
     WheatQueue() : provider() {}
 
-    int consume();
-    void provide(int count);
+    virtual int consume();
+    virtual void provide(int count);
 
     ~WheatQueue() {};
 };
+
+#endif

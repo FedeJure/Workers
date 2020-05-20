@@ -1,3 +1,5 @@
+#ifndef WORK_PROVIDER_H_
+#define WORK_PROVIDER_H_
 #include <mutex>
 #include <iostream>
 
@@ -12,3 +14,5 @@ class WorkProvider {
     void provide(int count);
     ~WorkProvider() {}
 };
+
+#endif

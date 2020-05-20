@@ -1,18 +1,20 @@
+#ifndef WORKER_H_
+#define WORKER_H_
 #include <thread>
-#include "./WorkProvider.h"
+#include "../Works/WheatQueue.h"
 
 class Worker {
     protected:
-    const std::thread thread;
-    const WorkProvider provider;
+    const WheatQueue* queue;
+    std::thread thread;
+
 
     public:
-    Worker(WorkProvider provider) : thread(std::thread(startWorking)), provider(provider) {
-
-    };
-
-    ~Worker() {
-        
-    }
+    Worker(const WheatQueue& providedQueue) : queue(&providedQueue), thread() {};
     void startWorking();
+    static void work();
+
+    ~Worker() {}
 };
+
+#endif
