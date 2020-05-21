@@ -5,15 +5,14 @@
 
 class Worker {
     protected:
-    const WheatQueue* queue;
+    WheatQueue* queue;
     std::thread thread;
 
 
     public:
-    Worker(const WheatQueue& providedQueue) : queue(&providedQueue), thread() {};
+    Worker(WheatQueue& providedQueue) : queue(&providedQueue), thread() {};
     void startWorking();
-    static void work();
-
+    void work();
     ~Worker() {}
 };
 

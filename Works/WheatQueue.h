@@ -1,18 +1,20 @@
 #ifndef WHEAT_QUEUE_H_
 #define WHEAT_QUEUE_H_
 #include <mutex>
-#include "./WorkProvider.h"
+#include "./BlockingQueue.h"
 
+
+typedef int Wheat;
 
 
 class WheatQueue {
-    WorkProvider provider;
+    BlockingQueue<Wheat> provider;
 
     public:
     WheatQueue() : provider() {}
 
-    virtual int consume();
-    virtual void provide(int count);
+    Wheat consume();
+    void provide(Wheat count);
 
     ~WheatQueue() {};
 };

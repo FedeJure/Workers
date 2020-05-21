@@ -1,9 +1,11 @@
 #include "./WheatQueue.h"
 
-int WheatQueue::consume() {
-    return provider.consume();
+Wheat WheatQueue::consume() {
+    std::cout << "consume";
+    return provider.pop();
 }
 
-void WheatQueue::provide(int count) {
-    provider.provide(count);
+void WheatQueue::provide(Wheat wheat) {
+    std::cout << "provide";
+    provider.push(wheat);
 }

@@ -12,8 +12,15 @@ int main() {
     // inicializar inventario
     // inicializar puntos de beneficio
     // inicir trabajadores
-    Farmer farmer(wheatQueue);
+    Worker farmer(wheatQueue);
+
+    Wheat w1(0);
+    Wheat w2(1);
+    wheatQueue.provide(w1);
+    wheatQueue.provide(w2);
+
     farmer.startWorking();
+
     // imprimir resultado al finalizar 
     return 0;
 }
