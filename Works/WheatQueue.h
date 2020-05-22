@@ -11,10 +11,13 @@ class WheatQueue {
     BlockingQueue<Wheat> provider;
 
     public:
-    WheatQueue() : provider() {}
+    WheatQueue() {}
 
     Wheat consume();
     void provide(Wheat count);
+    bool isEmpty();
+    bool isRunning();
+    void shutdown();
 
     ~WheatQueue() {};
 };

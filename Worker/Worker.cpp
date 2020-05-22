@@ -2,16 +2,19 @@
 #include "./Worker.h"
 
 void Worker::work() {
-    std::chrono::milliseconds dura( 2000 );
-    std::this_thread::sleep_for(dura);
-    Wheat w = this->queue->consume();
-    std::cout << "Working!! " << w;
+    std::cout << "Working!! \n";
+    fflush(stdout);
+    while(this->queue->isRunning() || !this->queue->isEmpty()) {
+        Wheat value = this->queue->consume();
+        std::cout << "Work done: " << value << "\n";
+        fflush(stdout);
+        std::chrono::milliseconds work_time(50);
+        std::this_thread::sleep_for(work_time);  
+    }
+    std::cout << "stop working\n";
+    fflush(stdout);
 }
 
-void Worker::startWorking() {
-    std::cout << "start working";
-    this->thread = std::thread(&Worker::work, this);
-    // this->thread = std::thread(work, this);
-    // this->thread.join();
-    this->thread.join();   
+void Worker::waitUntilTerminate() {
+    this->thread.join();
 }

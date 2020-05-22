@@ -1,49 +1,79 @@
-#ifndef BLOCKING_QUEUE_H_
-#define BLOCKING_QUEUE_H_
+#ifndef BLOCKINGqueue_H_
+#define BLOCKINGqueue_H_
 #include <mutex>
 #include <condition_variable>
-#include <deque>
+#include <queue>
 #include <iostream>
 
 template<typename T>
 class BlockingQueue {
-    private: 
+private:
+    std::queue<T> queue;
     std::mutex m;
-    std::deque<T> queue;
-    std::condition_variable codition;
+    std::condition_variable notEmpty;
+    bool working = true;
     bool notified = false;
 
-    public:
-    BlockingQueue() : queue() {}
-    T pop();
-    void push(T const& object);
-    ~BlockingQueue() {}
+public:
+    inline BlockingQueue(){}
+
+    inline bool isEmpty() {
+        {
+            bool toReturn = this->queue.size() == 0;
+            return toReturn;
+        }
+
+    }
+
+    inline void push(const T elem) {
+        {
+            std::unique_lock<std::mutex> lock(m);
+            queue.push(elem);
+            notified = true;
+        }
+        notEmpty.notify_one();
+
+
+    }
+
+    inline T pop() {
+        
+        std::unique_lock<std::mutex> lock(m);
+        while(!notified) {
+            if (isEmpty()) {
+                if (!isRunning()) {
+                    return T();
+                }
+                continue;
+            }
+            notEmpty.wait(lock);
+            notified = false;
+        }
+        if (isEmpty()) return T(); 
+        T toReturn(std::move(this->queue.front()));
+        queue.pop();
+        return toReturn;
+    }
+
+    inline void shutdown() {
+        {
+            std::unique_lock<std::mutex> lock(m);
+            working = false;
+            lock.unlock();
+        }
+        notEmpty.notify_all();
+
+    }
+
+    inline bool isRunning() {
+        {
+            std::unique_lock<std::mutex> lock(m);
+            bool toReturn = working;
+            lock.unlock();
+            return toReturn;
+        }
+    }
 };
 
-template <typename T>
-T BlockingQueue<T>::pop() {
-    std::cout << "Pop!";
-    std::unique_lock<std::mutex> lock(this->m);
-    while (!notified)
-    {
-        this->codition.wait(lock);        
-    }
-    std::fflush(stdout);
-
-    T toReturn(std::move(this->queue.front()));
-    this->queue.pop_front();
-    this->notified = false;
-    return toReturn;
-}
-
-template <typename T>
-void BlockingQueue<T>::push(T const &object) {
-    std::unique_lock<std::mutex> lock(this->m);
-    this->queue.push_back(object);
-    this->notified = true;
-    this->codition.notify_one();
-    std::cout << "push";
-    fflush(stdout);
-}
 
 #endif
