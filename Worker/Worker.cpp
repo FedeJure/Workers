@@ -6,9 +6,9 @@ void Worker::work() {
     fflush(stdout);
     while(this->queue->isRunning() || !this->queue->isEmpty()) {
         Wheat value = this->queue->consume();
-        std::cout << "Work done: " << value << "\n";
+        std::cout <<"thread id: "<<this->thread.get_id() << "Work done: " << value << "\n";
         fflush(stdout);
-        std::chrono::milliseconds work_time(50);
+        std::chrono::milliseconds work_time(1000);
         std::this_thread::sleep_for(work_time);  
     }
     std::cout << "stop working\n";

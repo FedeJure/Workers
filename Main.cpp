@@ -17,6 +17,8 @@ int main() {
     // inicir trabajadores
     Worker farmer(wheatQueue);
     Worker farmer1(wheatQueue);
+    Worker farmer2(wheatQueue);
+    Worker farmer3(wheatQueue);
 
     Wheat w1(0);
     Wheat w2(1);
@@ -36,6 +38,8 @@ int main() {
     
     farmer.waitUntilTerminate();
     farmer1.waitUntilTerminate();
+    farmer2.waitUntilTerminate();
+    farmer3.waitUntilTerminate();
 
     // imprimir resultado al finalizar 
     return 0;

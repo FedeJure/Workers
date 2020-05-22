@@ -4,6 +4,7 @@
 #include <condition_variable>
 #include <queue>
 #include <iostream>
+#include <thread>
 
 template<typename T>
 class BlockingQueue {
@@ -13,6 +14,12 @@ private:
     std::condition_variable notEmpty;
     bool working = true;
     bool notified = false;
+
+    bool isNotified() {
+        {
+            return notified;
+        }
+    }
 
 public:
     inline BlockingQueue(){}
@@ -37,15 +44,14 @@ public:
     }
 
     inline T pop() {
-        
-        std::unique_lock<std::mutex> lock(m);
-        while(!notified) {
+        while(!isNotified()) {
             if (isEmpty()) {
                 if (!isRunning()) {
                     return T();
                 }
                 continue;
             }
+            std::unique_lock<std::mutex> lock(m);
             notEmpty.wait(lock);
             notified = false;
         }
