@@ -15,11 +15,6 @@ int main() {
     // inicializar inventario
     // inicializar puntos de beneficio
     // inicir trabajadores
-    Worker farmer(wheatQueue);
-    Worker farmer1(wheatQueue);
-    Worker farmer2(wheatQueue);
-    Worker farmer3(wheatQueue);
-
     Wheat w1(0);
     Wheat w2(1);
     Wheat w3(2);
@@ -35,6 +30,13 @@ int main() {
     wheatQueue.provide(w6);
     wheatQueue.provide(w7);
     wheatQueue.shutdown();
+
+    Worker farmer(wheatQueue);
+    Worker farmer1(wheatQueue);
+    Worker farmer2(wheatQueue);
+    Worker farmer3(wheatQueue);
+
+
     
     farmer.waitUntilTerminate();
     farmer1.waitUntilTerminate();

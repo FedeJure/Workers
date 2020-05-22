@@ -13,7 +13,7 @@ class WheatQueue {
     public:
     WheatQueue() {}
 
-    Wheat consume();
+    Maybe<Wheat> consume();
     void provide(Wheat count);
     bool isEmpty();
     bool isRunning();

@@ -5,6 +5,7 @@
 #include <queue>
 #include <iostream>
 #include <thread>
+#include "../Maybe.h"
 
 template<typename T>
 class BlockingQueue {
@@ -43,11 +44,12 @@ public:
 
     }
 
-    inline T pop() {
+    inline Maybe<T> pop() {
         while(!isNotified()) {
             if (isEmpty()) {
                 if (!isRunning()) {
-                    return T();
+                    Maybe<T> nothing; 
+                    return nothing;
                 }
                 continue;
             }
@@ -56,7 +58,8 @@ public:
             notified = false;
         }
         if (isEmpty()) return T(); 
-        T toReturn(std::move(this->queue.front()));
+        T value = std::move(this->queue.front());
+        Maybe<T> toReturn(value);
         queue.pop();
         return toReturn;
     }

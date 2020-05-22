@@ -1,6 +1,6 @@
 #include "./WheatQueue.h"
 
-Wheat WheatQueue::consume() {
+Maybe<Wheat> WheatQueue::consume() {
     return provider.pop();
 }
 

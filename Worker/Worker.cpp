@@ -5,10 +5,12 @@ void Worker::work() {
     std::cout << "Working!! \n";
     fflush(stdout);
     while(this->queue->isRunning() || !this->queue->isEmpty()) {
-        Wheat value = this->queue->consume();
-        std::cout <<"thread id: "<<this->thread.get_id() << "Work done: " << value << "\n";
-        fflush(stdout);
-        std::chrono::milliseconds work_time(1000);
+        Maybe<Wheat> value = this->queue->consume();
+        if (value.hasValue()) { 
+            //guardar en inventario 
+            std::cout << "Guardando en inventario: " << value.getValue();
+        }
+        std::chrono::milliseconds work_time(50);
         std::this_thread::sleep_for(work_time);  
     }
     std::cout << "stop working\n";
