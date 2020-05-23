@@ -7,11 +7,11 @@ void Worker::work() {
     while(1) {
         Maybe<int> value = this->queue->pop();
         if (value.hasValue()) { 
+            std::chrono::milliseconds work_time(50);
+            std::this_thread::sleep_for(work_time);  
             this->inventory->add(WHEAT, value.getValue());
         }
         else break;
-        std::chrono::milliseconds work_time(1000);
-        std::this_thread::sleep_for(work_time);  
     }
     std::cout << "stop working\n";
     fflush(stdout);

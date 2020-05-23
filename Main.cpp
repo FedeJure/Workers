@@ -1,7 +1,4 @@
-#include <mutex>
-#include "./Works/WheatQueue.h"
-#include "./Gatherers.h"
-#include "./Inventory.h"
+#include "./Main.h"
 
 int main() {
     // leer trabajadores
@@ -11,31 +8,19 @@ int main() {
     
     // inicializar recursos en colas bloqueantes
     Inventory inventory;
-    BlockingQueue<int> wheatQueue;
-    BlockingQueue<int> woolQueue;
-    BlockingQueue<int> ironQueue;
-    BlockingQueue<int> coalQueue;
+    BlockingQueue<int> farmerQueue;
+    BlockingQueue<int> woodcutterQueue;
+    BlockingQueue<int> minerQueue;
 
     // inicializar inventario
     // inicializar puntos de beneficio
     // inicir trabajadores
-    wheatQueue.push(1);
-    wheatQueue.push(1);
-    wheatQueue.push(1);
-    wheatQueue.push(1);
-    wheatQueue.push(1);
-    wheatQueue.push(1);
-    wheatQueue.push(1);
-    wheatQueue.shutdown();
+    ResourcesProcessor processor(farmerQueue, woodcutterQueue, minerQueue);
 
-    Gatherers gatherers(inventory, wheatQueue, woolQueue, ironQueue, coalQueue);
-    gatherers.spawnWorkers(4, 0, 0);
+    Gatherers gatherers(inventory, farmerQueue, woodcutterQueue, minerQueue);
+    gatherers.spawnWorkers(4, 4, 4);
     gatherers.waitUntilFinish();
+    processor.waitUntilFinish();
 
-    // imprimir resultado al finalizar 
     return 0;
-}
-
-void initResources() {
-
 }

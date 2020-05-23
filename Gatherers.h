@@ -1,26 +1,23 @@
-#include "./Works/BlockingQueue.h"
-#include "./Worker/Worker.h"
+#include "./BlockingQueue.h"
+#include "./Worker.h"
 #include "./Inventory.h"
 #include <vector>
 
 class Gatherers {
-    BlockingQueue<int>* WheatQueue;
-    BlockingQueue<int>* WoodQueue;
-    BlockingQueue<int>* IronQueue;
-    BlockingQueue<int>* CoalQueue;
+    BlockingQueue<int>* FarmerQueue;
+    BlockingQueue<int>* WoodcutterQueue;
+    BlockingQueue<int>* MinerQueue;
     Inventory* inventory;
     std::vector<Worker*> workers;
 
     public:
     Gatherers(Inventory& inventory,
-            BlockingQueue<int> &WheatQueue,
-            BlockingQueue<int>& WoodQueue,
-            BlockingQueue<int>& IronQueue,
-            BlockingQueue<int>& CoalQueue){
-                this->WheatQueue = &WheatQueue;
-                this->WoodQueue = &WoodQueue;
-                this->IronQueue = &IronQueue;
-                this->CoalQueue = &CoalQueue;
+            BlockingQueue<int> &FarmerQueue,
+            BlockingQueue<int>& WoodcutterQueue,
+            BlockingQueue<int>& MinerQueue){
+                this->FarmerQueue = &FarmerQueue;
+                this->WoodcutterQueue = &WoodcutterQueue;
+                this->MinerQueue = &MinerQueue;
                 this->inventory = &inventory;
             }
     ~Gatherers();

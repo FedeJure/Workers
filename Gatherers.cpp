@@ -1,10 +1,10 @@
 #include "./Gatherers.h"
-#include "Worker/Worker.h"
+#include "Worker.h"
 
 void Gatherers::spawnWorkers(int farmers, int woodcutter, int miner) {
-    spawnWorker(farmers, *this->WheatQueue);
-    spawnWorker(woodcutter, *this->WoodQueue);
-    spawnWorker(miner, *this->CoalQueue);
+    spawnWorker(farmers, *this->FarmerQueue);
+    spawnWorker(woodcutter, *this->WoodcutterQueue);
+    spawnWorker(miner, *this->MinerQueue);
 }
 
 void Gatherers::spawnWorker(int count, BlockingQueue<int>& queue) {
