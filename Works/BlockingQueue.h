@@ -34,51 +34,32 @@ public:
     }
 
     inline void push(const T elem) {
-        {
-            std::unique_lock<std::mutex> lock(notifierMutex);
-            queue.push(elem);
-            notified = true;
-        }
-        notEmpty.notify_one();
-
-
+        std::unique_lock<std::mutex> lock(notifierMutex);
+        queue.push(elem);
+        notEmpty.notify_all();
+        notified = true;
     }
 
     inline Maybe<T> pop() {
-        while(!isNotified()) {
-            if (isEmpty()) {
-                if (!isRunning()) {
-                    Maybe<T> nothing; 
-                    return nothing;
-                }
-                continue;
+        std::unique_lock<std::mutex> lock(notifierMutex);
+        while(isEmpty()) {
+            if (!working) {
+                return Maybe<T>::nothing();
             }
-            std::unique_lock<std::mutex> lock(notifierMutex);
-            notEmpty.wait(lock);
-            notified = false;
+            while(!notified) {
+                notEmpty.wait(lock);
+            }
         }
-        if (isEmpty()) return T();
-        T value = std::move(this->queue.front());
-        Maybe<T> toReturn(value);
+        notified = false;
+        Maybe<T> toReturn(this->queue.front());
         queue.pop();
         return toReturn;
     }
 
     inline void shutdown() {
-        {
-            std::unique_lock<std::mutex> lock(notifierMutex);
-            working = false;
-        }
+        std::unique_lock<std::mutex> lock(notifierMutex);
+        working = false;
         notEmpty.notify_all();
-
-    }
-
-    inline bool isRunning() {
-        {
-            std::unique_lock<std::mutex> lock(notifierMutex);
-            bool toReturn = working;
-            return toReturn;
-        }
     }
 };
 

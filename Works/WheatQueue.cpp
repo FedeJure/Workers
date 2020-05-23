@@ -12,10 +12,6 @@ bool WheatQueue::isEmpty() {
     return provider.isEmpty();
 }
 
-bool WheatQueue::isRunning() {
-    return provider.isRunning();
-}
-
 void WheatQueue::shutdown() {
     provider.shutdown();
 }

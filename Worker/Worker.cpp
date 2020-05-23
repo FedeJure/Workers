@@ -4,12 +4,14 @@
 void Worker::work() {
     std::cout << "Working!! \n";
     fflush(stdout);
-    while(this->queue->isRunning() || !this->queue->isEmpty()) {
+    while(1) {
         Maybe<Wheat> value = this->queue->consume();
         if (value.hasValue()) { 
             //guardar en inventario 
             std::cout << "Guardando en inventario: " << value.getValue();
+            fflush(stdout);
         }
+        else break;
         std::chrono::milliseconds work_time(50);
         std::this_thread::sleep_for(work_time);  
     }
