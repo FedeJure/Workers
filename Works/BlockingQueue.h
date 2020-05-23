@@ -11,7 +11,7 @@ template<typename T>
 class BlockingQueue {
 private:
     std::queue<T> queue;
-    std::mutex m;
+    std::mutex notifierMutex;
     std::condition_variable notEmpty;
     bool working = true;
     bool notified = false;
@@ -35,7 +35,7 @@ public:
 
     inline void push(const T elem) {
         {
-            std::unique_lock<std::mutex> lock(m);
+            std::unique_lock<std::mutex> lock(notifierMutex);
             queue.push(elem);
             notified = true;
         }
@@ -53,11 +53,11 @@ public:
                 }
                 continue;
             }
-            std::unique_lock<std::mutex> lock(m);
+            std::unique_lock<std::mutex> lock(notifierMutex);
             notEmpty.wait(lock);
             notified = false;
         }
-        if (isEmpty()) return T(); 
+        if (isEmpty()) return T();
         T value = std::move(this->queue.front());
         Maybe<T> toReturn(value);
         queue.pop();
@@ -66,9 +66,8 @@ public:
 
     inline void shutdown() {
         {
-            std::unique_lock<std::mutex> lock(m);
+            std::unique_lock<std::mutex> lock(notifierMutex);
             working = false;
-            lock.unlock();
         }
         notEmpty.notify_all();
 
@@ -76,9 +75,8 @@ public:
 
     inline bool isRunning() {
         {
-            std::unique_lock<std::mutex> lock(m);
+            std::unique_lock<std::mutex> lock(notifierMutex);
             bool toReturn = working;
-            lock.unlock();
             return toReturn;
         }
     }
