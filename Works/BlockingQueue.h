@@ -26,11 +26,8 @@ public:
     inline BlockingQueue(){}
 
     inline bool isEmpty() {
-        {
-            bool toReturn = this->queue.size() == 0;
-            return toReturn;
-        }
-
+        bool toReturn = this->queue.size() == 0;
+        return toReturn;
     }
 
     inline void push(const T elem) {
