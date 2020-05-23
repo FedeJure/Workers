@@ -1,21 +1,16 @@
 #include "./Gatherers.h"
 #include "Worker/Worker.h"
 
-void Gatherers::spawnFarmer(int count) {
-    spawnWorker(count, *this->WheatQueue);
-}
-
-void Gatherers::spawnWoodcutter(int count) {
-    spawnWorker(count, *this->WoodQueue);
-}
-
-void Gatherers::spawnMiner(int count) {
+void Gatherers::spawnWorkers(int farmers, int woodcutter, int miner) {
+    spawnWorker(farmers, *this->WheatQueue);
+    spawnWorker(woodcutter, *this->WoodQueue);
+    spawnWorker(miner, *this->CoalQueue);
 }
 
 void Gatherers::spawnWorker(int count, BlockingQueue<int>& queue) {
     for (int i = 0; i < count; i++)
     {
-        Worker* newWorker = new Worker(queue);
+        Worker* newWorker = new Worker(queue, *this->inventory);
         workers.push_back(newWorker);
     }
 }

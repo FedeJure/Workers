@@ -5,11 +5,9 @@ void Worker::work() {
     std::cout << "Working!! \n";
     fflush(stdout);
     while(1) {
-        Maybe<Wheat> value = this->queue->pop();
+        Maybe<int> value = this->queue->pop();
         if (value.hasValue()) { 
-            //guardar en inventario 
-            std::cout << "Guardando en inventario: " << value.getValue();
-            fflush(stdout);
+            this->inventory->add(WHEAT, value.getValue());
         }
         else break;
         std::chrono::milliseconds work_time(1000);
