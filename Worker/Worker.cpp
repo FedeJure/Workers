@@ -12,7 +12,7 @@ void Worker::work() {
             fflush(stdout);
         }
         else break;
-        std::chrono::milliseconds work_time(50);
+        std::chrono::milliseconds work_time(1000);
         std::this_thread::sleep_for(work_time);  
     }
     std::cout << "stop working\n";

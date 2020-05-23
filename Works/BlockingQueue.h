@@ -16,19 +16,8 @@ private:
     bool working = true;
     bool notified = false;
 
-    bool isNotified() {
-        {
-            return notified;
-        }
-    }
-
 public:
     inline BlockingQueue(){}
-
-    inline bool isEmpty() {
-        bool toReturn = this->queue.size() == 0;
-        return toReturn;
-    }
 
     inline void push(const T elem) {
         std::unique_lock<std::mutex> lock(notifierMutex);
@@ -39,7 +28,7 @@ public:
 
     inline Maybe<T> pop() {
         std::unique_lock<std::mutex> lock(notifierMutex);
-        while(isEmpty()) {
+        while(this->queue.empty()) {
             if (!working) {
                 return Maybe<T>::nothing();
             }
