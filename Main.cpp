@@ -1,6 +1,6 @@
 #include <mutex>
 #include "./Works/WheatQueue.h"
-#include "./Worker/Worker.h"
+#include "./Gatherers.h"
 
 int main() {
     // leer trabajadores
@@ -10,7 +10,10 @@ int main() {
     
     // inicializar recursos en colas bloqueantes
     std::mutex sharedMutex;
-    WheatQueue wheatQueue;
+    BlockingQueue<int> wheatQueue;
+    BlockingQueue<int> woolQueue;
+    BlockingQueue<int> ironQueue;
+    BlockingQueue<int> coalQueue;
 
     // inicializar inventario
     // inicializar puntos de beneficio
@@ -22,27 +25,23 @@ int main() {
     Wheat w5(4);
     Wheat w6(5);
     Wheat w7(6);
-    wheatQueue.provide(w1);
-    wheatQueue.provide(w2);
-    wheatQueue.provide(w3);
-    wheatQueue.provide(w4);
-    wheatQueue.provide(w5);
-    wheatQueue.provide(w6);
-    wheatQueue.provide(w7);
+    wheatQueue.push(w1);
+    wheatQueue.push(w2);
+    wheatQueue.push(w3);
+    wheatQueue.push(w4);
+    wheatQueue.push(w5);
+    wheatQueue.push(w6);
+    wheatQueue.push(w7);
     wheatQueue.shutdown();
 
-    Worker farmer(wheatQueue);
-    Worker farmer1(wheatQueue);
-    Worker farmer2(wheatQueue);
-    Worker farmer3(wheatQueue);
-
-
-    
-    farmer.waitUntilTerminate();
-    farmer1.waitUntilTerminate();
-    farmer2.waitUntilTerminate();
-    farmer3.waitUntilTerminate();
+    Gatherers gatherers(wheatQueue, woolQueue, ironQueue, coalQueue);
+    gatherers.spawnFarmer(4);
+    gatherers.waitUntilFinish();
 
     // imprimir resultado al finalizar 
     return 0;
+}
+
+void initResources() {
+
 }

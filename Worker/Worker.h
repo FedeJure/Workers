@@ -5,16 +5,11 @@
 
 class Worker {
     protected:
-    WheatQueue* queue;
-    std::mutex m;
+    BlockingQueue<int>* queue;
     std::thread thread;
-    std::condition_variable codition;
-    bool notified = false;
-
-
 
     public:
-    Worker(WheatQueue& providedQueue) : queue(&providedQueue),
+    Worker(BlockingQueue<int>& providedQueue) : queue(&providedQueue),
                                         thread(&Worker::work, this) {};
     void waitUntilTerminate();
     void work();

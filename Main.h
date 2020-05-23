@@ -1,0 +1,2 @@
+void initResources();
+void initWorkers();

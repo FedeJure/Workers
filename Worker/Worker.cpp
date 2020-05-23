@@ -5,7 +5,7 @@ void Worker::work() {
     std::cout << "Working!! \n";
     fflush(stdout);
     while(1) {
-        Maybe<Wheat> value = this->queue->consume();
+        Maybe<Wheat> value = this->queue->pop();
         if (value.hasValue()) { 
             //guardar en inventario 
             std::cout << "Guardando en inventario: " << value.getValue();

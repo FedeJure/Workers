@@ -12,13 +12,9 @@ class WheatQueue {
 
     public:
     WheatQueue() {}
-
     Maybe<Wheat> consume();
     void provide(Wheat count);
-    bool isEmpty();
-    bool isRunning();
     void shutdown();
-
     ~WheatQueue() {};
 };
 

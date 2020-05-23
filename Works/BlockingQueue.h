@@ -1,5 +1,5 @@
-#ifndef BLOCKINGqueue_H_
-#define BLOCKINGqueue_H_
+#ifndef BLOCKING_QUEUE_H_
+#define BLOCKING_QUEUE_H_
 #include <mutex>
 #include <condition_variable>
 #include <queue>
