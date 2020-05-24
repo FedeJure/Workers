@@ -3,44 +3,51 @@
 
 #include <string>
 
-class Material {
-    public:
-    virtual std::string toString() {
-        return "Material";
-    };
+enum Material {
+    Wheat,
+    Wood,
+    Iron,
+    Coal
 };
 
-class Wheat : public Material {
-    public:
-    Wheat() {}
-    virtual std::string toString() {
-        return "Wheat";
-    }
-};
+// class Material {
+//     public:
+//     virtual std::string toString() {
+//         return "Material";
+//     };
+// };
 
-class Wood: public Material {
-    public:
-    Wood() {}
-    virtual std::string toString() {
-        return "Wood";
-    }
-};
+// class Wheat : public Material {
+//     public:
+//     Wheat() {}
+//     virtual std::string toString() {
+//         return "Wheat";
+//     }
+// };
 
-class Iron: public Material {
-    public:
-    Iron() {}
-    virtual std::string toString() {
-        return "Iron";
-    }
-};
+// class Wood: public Material {
+//     public:
+//     Wood() {}
+//     virtual std::string toString() {
+//         return "Wood";
+//     }
+// };
 
-class Coal: public Material {
-    public:
-    Coal() {}
-    virtual std::string toString() {
-        return "Coal";
-    }
-};
+// class Iron: public Material {
+//     public:
+//     Iron() {}
+//     virtual std::string toString() {
+//         return "Iron";
+//     }
+// };
+
+// class Coal: public Material {
+//     public:
+//     Coal() {}
+//     virtual std::string toString() {
+//         return "Coal";
+//     }
+// };
 
 
 #endif

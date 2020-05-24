@@ -7,19 +7,19 @@
 #include "./Material.h"
 
 class Inventory {
-    std::map<std::string, int> container;
+    std::map<Material, int> container;
     std::mutex m;
     public:
 
     Inventory() {
-        container[Wheat().toString()] = 0;
-        container[Wood().toString()] = 0;
-        container[Iron().toString()] = 0;
-        container[Coal().toString()] = 0;
+        container[Wheat] = 0;
+        container[Wood] = 0;
+        container[Iron] = 0;
+        container[Coal] = 0;
     }
 
-    void add(Material& material);
-    int remove(std::string type);
+    void add(Material material);
+    int remove(Material type);
 };
 
 #endif

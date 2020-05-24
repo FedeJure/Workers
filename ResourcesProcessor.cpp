@@ -8,23 +8,20 @@ void ResourcesProcessor::process() {
         {
             char readed = line[i];
             if (readed == 'T') {
-                Wheat w;
-                FarmerQueue->push(w);
+                FarmerQueue->push(Wheat);
             }
             if (readed == 'M') {
-                Wood w;
-                WoodcutterQueue->push(w);
+                WoodcutterQueue->push(Wood);
             }
             if (readed == 'H'){
-                Iron i;
-                MinerQueue->push(i);
+                MinerQueue->push(Iron);
             }
             if (readed == 'C') {
-                Coal c;
-                MinerQueue->push(c);
+                MinerQueue->push(Coal);
             }
         }
     }
+    std::cout<<"\nFinish Process!!!\n";
     FarmerQueue->shutdown();
     MinerQueue->shutdown();
     WoodcutterQueue->shutdown();
