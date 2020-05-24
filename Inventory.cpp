@@ -1,6 +1,6 @@
 #include "./Inventory.h"
 
-void Inventory::add(Material material) {
+void Inventory::add(Material& material) {
     std::cout << material.toString();
     fflush(stdout);
     std::unique_lock<std::mutex> lock(m);

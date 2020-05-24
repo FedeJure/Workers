@@ -12,13 +12,13 @@ class Inventory {
     public:
 
     Inventory() {
-        container[Wheat().type] = 0;
-        container[Wood().type] = 0;
-        container[Iron().type] = 0;
-        container[Coal().type] = 0;
+        container[Wheat().toString()] = 0;
+        container[Wood().toString()] = 0;
+        container[Iron().toString()] = 0;
+        container[Coal().toString()] = 0;
     }
 
-    void add(Material material);
+    void add(Material& material);
     int remove(std::string type);
 };
 

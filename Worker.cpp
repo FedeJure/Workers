@@ -9,7 +9,7 @@ void Worker::work() {
         if (value.hasValue()) { 
             std::chrono::milliseconds work_time(50);
             std::this_thread::sleep_for(work_time);  
-            this->inventory->add(value.getValue());
+            this->inventory->add(*value.getValue());
         }
         else break;
     }
