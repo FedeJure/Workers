@@ -7,7 +7,7 @@ void Gatherers::spawnWorkers(int farmers, int woodcutter, int miner) {
     spawnWorker(miner, *this->MinerQueue);
 }
 
-void Gatherers::spawnWorker(int count, BlockingQueue<int>& queue) {
+void Gatherers::spawnWorker(int count, BlockingQueue<Material>& queue) {
     for (int i = 0; i < count; i++)
     {
         Worker* newWorker = new Worker(queue, *this->inventory);

@@ -8,9 +8,9 @@ int main() {
     
     // inicializar recursos en colas bloqueantes
     Inventory inventory;
-    BlockingQueue<int> farmerQueue;
-    BlockingQueue<int> woodcutterQueue;
-    BlockingQueue<int> minerQueue;
+    BlockingQueue<Material> farmerQueue;
+    BlockingQueue<Material> woodcutterQueue;
+    BlockingQueue<Material> minerQueue;
 
     // inicializar inventario
     // inicializar puntos de beneficio

@@ -2,16 +2,18 @@
 #define WORKER_H_
 #include <thread>
 #include "./Inventory.h"
-#include "./WheatQueue.h"
+#include "./Maybe.h"
+#include "./Material.h"
+#include "./BlockingQueue.h"
 
 class Worker {
     protected:
-    BlockingQueue<int>* queue;
+    BlockingQueue<Material>* queue;
     std::thread thread;
     Inventory* inventory;
 
     public:
-    Worker(BlockingQueue<int>& providedQueue, Inventory& inventory) 
+    Worker(BlockingQueue<Material>& providedQueue, Inventory& inventory) 
                     : queue(&providedQueue), thread(&Worker::work, this) {
                         this->inventory = &inventory;
                     };

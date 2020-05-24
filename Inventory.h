@@ -3,28 +3,23 @@
 
 #include <map>
 #include <mutex>
-
-enum InventoryObject {
-    WHEAT,
-    WOOD,
-    IRON,
-    COAL
-};
+#include <iostream>
+#include "./Material.h"
 
 class Inventory {
-    std::map<int, int> container;
+    std::map<std::string, int> container;
     std::mutex m;
     public:
 
     Inventory() {
-        container[WHEAT] = 0;
-        container[WOOD] = 0;
-        container[IRON] = 0;
-        container[COAL] = 0;
+        container[Wheat().type] = 0;
+        container[Wood().type] = 0;
+        container[Iron().type] = 0;
+        container[Coal().type] = 0;
     }
 
-    void add(InventoryObject type, int count);
-    int remove(InventoryObject type);
+    void add(Material material);
+    int remove(std::string type);
 };
 
 #endif

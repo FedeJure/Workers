@@ -4,17 +4,17 @@
 #include <vector>
 
 class Gatherers {
-    BlockingQueue<int>* FarmerQueue;
-    BlockingQueue<int>* WoodcutterQueue;
-    BlockingQueue<int>* MinerQueue;
+    BlockingQueue<Material>* FarmerQueue;
+    BlockingQueue<Material>* WoodcutterQueue;
+    BlockingQueue<Material>* MinerQueue;
     Inventory* inventory;
     std::vector<Worker*> workers;
 
     public:
     Gatherers(Inventory& inventory,
-            BlockingQueue<int> &FarmerQueue,
-            BlockingQueue<int>& WoodcutterQueue,
-            BlockingQueue<int>& MinerQueue){
+            BlockingQueue<Material> &FarmerQueue,
+            BlockingQueue<Material>& WoodcutterQueue,
+            BlockingQueue<Material>& MinerQueue){
                 this->FarmerQueue = &FarmerQueue;
                 this->WoodcutterQueue = &WoodcutterQueue;
                 this->MinerQueue = &MinerQueue;
@@ -26,5 +26,5 @@ class Gatherers {
     void waitUntilFinish();
 
     private:
-    void spawnWorker(int count, BlockingQueue<int>& queue);
+    void spawnWorker(int count, BlockingQueue<Material>& queue);
 };

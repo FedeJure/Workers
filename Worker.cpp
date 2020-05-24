@@ -5,11 +5,11 @@ void Worker::work() {
     std::cout << "Working!! \n";
     fflush(stdout);
     while(1) {
-        Maybe<int> value = this->queue->pop();
+        Maybe<Material> value = this->queue->pop();
         if (value.hasValue()) { 
             std::chrono::milliseconds work_time(50);
             std::this_thread::sleep_for(work_time);  
-            this->inventory->add(WHEAT, value.getValue());
+            this->inventory->add(value.getValue());
         }
         else break;
     }
