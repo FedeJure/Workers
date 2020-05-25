@@ -1,9 +1,11 @@
+#ifndef GATHERERS_SPAWNER_H_
+#define GATHERERS_SPAWNER_H_
 #include "./BlockingQueue.h"
 #include "./Worker.h"
 #include "./Inventory.h"
 #include <vector>
 
-class Gatherers {
+class GatherersSpawner {
     BlockingQueue<Material>* FarmerQueue;
     BlockingQueue<Material>* WoodcutterQueue;
     BlockingQueue<Material>* MinerQueue;
@@ -11,7 +13,7 @@ class Gatherers {
     std::vector<Worker*> workers;
 
     public:
-    Gatherers(Inventory& inventory,
+    GatherersSpawner(Inventory& inventory,
             BlockingQueue<Material> &FarmerQueue,
             BlockingQueue<Material>& WoodcutterQueue,
             BlockingQueue<Material>& MinerQueue){
@@ -20,11 +22,14 @@ class Gatherers {
                 this->MinerQueue = &MinerQueue;
                 this->inventory = &inventory;
             }
-    ~Gatherers();
+    ~GatherersSpawner();
 
-    void spawnWorkers(int farmers, int woodcutter, int miner);
+    void spawnWorkers(int farmers, int woodcutter, int miner,
+                        int chef, int carpenter, int weaponsmith);
     void waitUntilFinish();
 
     private:
     void spawnWorker(int count, BlockingQueue<Material>& queue);
 };
+
+#endif

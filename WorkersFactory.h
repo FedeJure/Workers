@@ -6,13 +6,27 @@
 #include <regex>
 #include <iostream>
 #include <map>
+#include <vector>
+#include "./GatherersSpawner.h"
 
 class WorkersFactory {
+    std::vector<std::string> keys =
+                            {"Agricultores",
+                            "Leniadores",
+                            "Mineros",
+                            "Cocineros",
+                            "Carpinteros",
+                            "Armeros"};
     std::ifstream file;
     std::map<std::string, int> spawnMap;
+    GatherersSpawner* spawner;
     public:
-    WorkersFactory(int farmers, int woodcutters, int miners) :
-                                    file("trabajadores.txt"){}
+    WorkersFactory(GatherersSpawner& spawner) : file("trabajadores.txt") {
+        this->spawner = &spawner;
+        for (std::string key : keys) {
+            spawnMap[key] = 0;
+        }
+    }
 
     void createWorkersFromFile();
 

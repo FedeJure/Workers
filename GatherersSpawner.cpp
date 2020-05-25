@@ -1,13 +1,14 @@
-#include "./Gatherers.h"
+#include "./GatherersSpawner.h"
 #include "Worker.h"
 
-void Gatherers::spawnWorkers(int farmers, int woodcutter, int miner) {
+void GatherersSpawner::spawnWorkers(int farmers, int woodcutter, int miner,
+                                    int chef, int carpenter, int weaponsmith) {
     spawnWorker(farmers, *this->FarmerQueue);
     spawnWorker(woodcutter, *this->WoodcutterQueue);
     spawnWorker(miner, *this->MinerQueue);
 }
 
-void Gatherers::spawnWorker(int count, BlockingQueue<Material>& queue) {
+void GatherersSpawner::spawnWorker(int count, BlockingQueue<Material>& queue) {
     for (int i = 0; i < count; i++)
     {
         Worker* newWorker = new Worker(queue, *this->inventory);
@@ -15,13 +16,13 @@ void Gatherers::spawnWorker(int count, BlockingQueue<Material>& queue) {
     }
 }
 
-Gatherers::~Gatherers() {
+GatherersSpawner::~GatherersSpawner() {
     for (Worker* w : workers) {
         delete w;
     }   
 }
 
-void Gatherers::waitUntilFinish() {
+void GatherersSpawner::waitUntilFinish() {
     for (Worker* w : workers) {
         w->waitUntilTerminate();
     }

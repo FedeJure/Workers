@@ -7,13 +7,12 @@ int main() {
     BlockingQueue<Material> minerQueue;
 
     ResourcesProcessor processor(farmerQueue, woodcutterQueue, minerQueue);
-    WorkersFactory factory(4,4,4);
-    factory.createWorkersFromFile();
-    Gatherers gatherers(inventory, farmerQueue, woodcutterQueue, minerQueue);
+    GatherersSpawner spawner(inventory, farmerQueue, woodcutterQueue, minerQueue);
+    WorkersFactory factory(spawner);
 
-    gatherers.spawnWorkers(4, 4, 4);
+    factory.createWorkersFromFile();
     
-    gatherers.waitUntilFinish();
+    spawner.waitUntilFinish();
     processor.waitUntilFinish();
 
     return 0;
