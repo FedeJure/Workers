@@ -23,6 +23,7 @@ class Worker {
             if (value.hasValue()) { 
                 std::chrono::milliseconds work_time(50);
                 std::this_thread::sleep_for(work_time);
+                this->saveWork(value.getValue());
             }
             else break;
         }
@@ -43,11 +44,12 @@ class Gatherer: public Worker<Material, Material> {
     Inventory* inventory;
     public:
     Gatherer(BlockingQueue<Material, Material>& providedQueue,
-            Inventory& inventory) : Worker(providedQueue){
+            Inventory& inventory) : Worker<Material, Material>(providedQueue) {
         this->inventory = &inventory;
     }
     
-    ~Gatherer() {
+    virtual ~Gatherer() {
+
     }
     protected:
     virtual void saveWork(Material values);
