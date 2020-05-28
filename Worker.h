@@ -6,20 +6,50 @@
 #include "./Material.h"
 #include "./BlockingQueue.h"
 
+template<typename U, typename T>
 class Worker {
     protected:
-    BlockingQueue<Material>* queue;
     std::thread thread;
-    Inventory* inventory;
+    BlockingQueue<U, T>* queue;
 
     public:
-    Worker(BlockingQueue<Material>& providedQueue, Inventory& inventory) 
-                    : queue(&providedQueue), thread(&Worker::work, this) {
-                        this->inventory = &inventory;
-                    };
-    void waitUntilTerminate();
-    void work();
-    ~Worker() {}
+    Worker(BlockingQueue<U, T>& providedQueue) :
+        thread(&Worker::work, this), queue(&providedQueue) {}
+    void work() {
+        std::cout << "Working!! \n";
+        fflush(stdout);
+        while(1) {
+            Maybe<T> value = this->queue->pop();
+            if (value.hasValue()) { 
+                std::chrono::milliseconds work_time(50);
+                std::this_thread::sleep_for(work_time);
+            }
+            else break;
+        }
+        std::cout << "stop working\n";
+        fflush(stdout);
+    }
+
+    void waitUntilTerminate() {
+        this->thread.join();
+    }
+
+    protected:
+    virtual void saveWork(T value) = 0;
 };
 
+
+class Gatherer: public Worker<Material, Material> {
+    Inventory* inventory;
+    public:
+    Gatherer(BlockingQueue<Material, Material>& providedQueue,
+            Inventory& inventory) : Worker(providedQueue){
+        this->inventory = &inventory;
+    }
+    
+    ~Gatherer() {
+    }
+    protected:
+    virtual void saveWork(Material values);
+};
 #endif

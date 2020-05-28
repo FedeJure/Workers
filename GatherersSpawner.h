@@ -3,24 +3,38 @@
 #include "./BlockingQueue.h"
 #include "./Worker.h"
 #include "./Inventory.h"
+#include "./ProducerQueue.h"
+#include "./BenefitPointRepository.h"
 #include <vector>
 
 class GatherersSpawner {
-    BlockingQueue<Material>* FarmerQueue;
-    BlockingQueue<Material>* WoodcutterQueue;
-    BlockingQueue<Material>* MinerQueue;
+    BlockingQueue<Material, Material>* FarmerQueue;
+    BlockingQueue<Material, Material>* WoodcutterQueue;
+    BlockingQueue<Material, Material>* MinerQueue;
+    ChefQueue* chefQueue;
+    CarpenterQueue* carpenterQueue;
+    WheaponsmithQueue* weaponsmithQueue;
+    BenefitPointRepository* benefitPoints;
     Inventory* inventory;
-    std::vector<Worker*> workers;
+    std::vector<Gatherer*> workers;
 
     public:
     GatherersSpawner(Inventory& inventory,
-            BlockingQueue<Material> &FarmerQueue,
-            BlockingQueue<Material>& WoodcutterQueue,
-            BlockingQueue<Material>& MinerQueue){
+            BlockingQueue<Material, Material> &FarmerQueue,
+            BlockingQueue<Material, Material>& WoodcutterQueue,
+            BlockingQueue<Material, Material>& MinerQueue,
+            BenefitPointRepository& benefitPoints,
+            ChefQueue& chefQueue,
+            CarpenterQueue& carpenterQueue,
+            WheaponsmithQueue& weaponsmithQueue){
                 this->FarmerQueue = &FarmerQueue;
                 this->WoodcutterQueue = &WoodcutterQueue;
                 this->MinerQueue = &MinerQueue;
                 this->inventory = &inventory;
+                this->benefitPoints = &benefitPoints;
+                this->chefQueue = &chefQueue;
+                this->carpenterQueue = &carpenterQueue;
+                this->weaponsmithQueue = &weaponsmithQueue;
             }
     ~GatherersSpawner();
 
@@ -29,7 +43,7 @@ class GatherersSpawner {
     void waitUntilFinish();
 
     private:
-    void spawnWorker(int count, BlockingQueue<Material>& queue);
+    void spawnWorker(int count, BlockingQueue<Material, Material>& queue);
 };
 
 #endif

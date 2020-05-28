@@ -2,10 +2,10 @@
 #include "./Material.h"
 
 class ProvideResource {
-    BlockingQueue<Material>* queue;
+    BlockingQueue<Material, Material>* queue;
     Material mat;
     public:
-    ProvideResource(BlockingQueue<Material>& q, Material mat) { 
+    ProvideResource(BlockingQueue<Material, Material>& q, Material mat) { 
         this->queue = &q; 
         this->mat = mat;
     } 

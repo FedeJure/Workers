@@ -2,3 +2,4 @@
 #include "./Inventory.h"
 #include "./ResourcesProcessor.h"
 #include "./WorkersFactory.h"
+#include "./ProducerQueue.h"

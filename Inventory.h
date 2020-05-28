@@ -4,6 +4,8 @@
 #include <map>
 #include <mutex>
 #include <iostream>
+#include <vector>
+#include <utility>
 #include "./Material.h"
 
 class Inventory {
@@ -20,6 +22,7 @@ class Inventory {
 
     void add(Material material);
     int remove(Material type);
+    bool extractMaterials(std::vector<std::pair<Material, int>> materials);
 };
 
 #endif

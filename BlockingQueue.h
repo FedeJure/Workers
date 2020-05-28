@@ -7,7 +7,7 @@
 #include <thread>
 #include "./Maybe.h"
 
-template<typename T>
+template<typename T, typename U>
 class BlockingQueue {
 private:
     std::queue<T> queue;
@@ -26,19 +26,19 @@ public:
         notified = true;
     }
 
-    inline Maybe<T> pop() {
+    inline Maybe<U> pop() {
         std::unique_lock<std::mutex> lock(notifierMutex);
-        while(this->queue.empty()) {
+        while(!_continueCondition()) {
             if (!working) {
-                return Maybe<T>::nothing();
+                return Maybe<U>::nothing();
             }
             while(!notified) {
                 notEmpty.wait(lock);
             }
         }
         notified = false;
-        Maybe<T> toReturn(this->queue.front());
-        queue.pop();
+        U aux = _pop();
+        Maybe<U> toReturn(aux);
         return toReturn;
     }
 
@@ -47,7 +47,16 @@ public:
         working = false;
         notEmpty.notify_all();
     }
+    virtual U _pop() {
+        U aux = this->queue.front();
+        this->queue.pop();
+        return aux;
+    };
+    virtual bool _continueCondition() {
+        return !this->queue.empty();
+    }
 };
+
 
 
 #endif
