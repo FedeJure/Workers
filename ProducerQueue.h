@@ -6,20 +6,6 @@
 #include "./Inventory.h"
 #include "./BenefitPointRepository.h"
 
-template<>
-class BlockingQueue<Material, BenefitPoints> {
-
-    public:
-    BlockingQueue() { }
-
-    virtual void push(const BenefitPoints elem);
-
-    virtual Maybe<BenefitPoints> pop();
-
-    virtual BenefitPoints _pop() = 0;
-    virtual bool _continueCondition() = 0;
-
-};
 
 class ChefQueue: public BlockingQueue<Material, BenefitPoints> {
     Inventory* inventory;

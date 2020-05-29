@@ -1,6 +1,7 @@
 #ifndef PRODUCER_H_
 #define PRODUCER_H_
 #include "./Worker.h"
+#include "./BlockingQueue.h"
 #include "./Inventory.h"
 #include "./Material.h"
 #include "./BenefitPointRepository.h"
@@ -42,6 +43,8 @@ class Producer {
         this->thread.join();
     }
     void saveWork(BenefitPoints value);
+    bool wakeupCondition();
+    void makeJob();
 };
 
 

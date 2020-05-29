@@ -15,7 +15,7 @@ class Worker {
     public:
     Worker(BlockingQueue<T, U>& providedQueue) :
         thread(&Worker<T, U>::work, this), queue(&providedQueue) {}
-    void work() {
+    virtual void work() {
         std::cout << "Working!! \n";
         fflush(stdout);
         while(1) {

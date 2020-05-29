@@ -1,29 +1,22 @@
 #ifndef GATHERER_H_
 #define GATHERER_H
-
 #include "./Worker.h"
+#include "./BlockingQueue.h"
+#include "./BenefitPointRepository.h"
 #include "./Inventory.h"
 #include "./Material.h"
 
-class Gatherer {
-    std::thread thread;
-    BlockingQueue<Material, Material>* queue;
+class Gatherer: public Worker<Material, Material> {
     Inventory* inventory;
-
-    void saveWork(Material value);
-
     public:
     Gatherer(BlockingQueue<Material, Material>& providedQueue,
-            Inventory& inventory) :
-        thread(&Gatherer::work, this){
-            this->queue =&providedQueue;
-            this->inventory = &inventory;
-        }
-    void work();
-
-    void waitUntilTerminate() {
-        this->thread.join();
+            Inventory& inventory) : Worker<Material, Material>(providedQueue) {
+        this->inventory = &inventory;
     }
+    
+    virtual ~Gatherer() {}
+    protected:
+    virtual void saveWork(Material values);
 };
 
 #endif

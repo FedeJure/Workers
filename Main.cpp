@@ -27,6 +27,7 @@ int main() {
                             carpenterQueue,
                             weaponsmithQueue);
     
+    
 
     // los trabajadores empiezan a consumir
     WorkersFactory factory(spawner);

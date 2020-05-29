@@ -1,5 +1,4 @@
 #include "./GatherersSpawner.h"
-#include "Worker.h"
 
 void GatherersSpawner::spawnWorkers(int farmers, int woodcutter, int miner,
                                     int chef, int carpenter, int weaponsmith) {

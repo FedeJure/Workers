@@ -10,7 +10,7 @@
 template<typename T, typename U>
 class BlockingQueue {
     private:
-    std::queue<T> queue;
+    std::queue<U> queue;
     std::mutex notifierMutex;
     std::condition_variable notEmpty;
     bool working = true;
