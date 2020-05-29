@@ -12,7 +12,7 @@ class BlockingQueue {
     private:
     std::queue<U> queue;
     std::mutex notifierMutex;
-    std::condition_variable notEmpty;
+    std::condition_variable sleepCondition;
     bool working = true;
     bool notified = false;
 
@@ -22,7 +22,7 @@ class BlockingQueue {
     void push(const T elem) {
         std::unique_lock<std::mutex> lock(notifierMutex);
         queue.push(elem);
-        notEmpty.notify_all();
+        notify();
         notified = true;
     }
 
@@ -33,7 +33,7 @@ class BlockingQueue {
                 return Maybe<U>::nothing();
             }
             while(!notified) {
-                notEmpty.wait(lock);
+                sleepCondition.wait(lock);
             }
         }
         notified = false;
@@ -45,7 +45,10 @@ class BlockingQueue {
     void shutdown() {
         std::unique_lock<std::mutex> lock(notifierMutex);
         working = false;
-        notEmpty.notify_all();
+        notify();
+    }
+    void notify() {
+        sleepCondition.notify_all();
     }
     virtual U _pop() {
         U aux = this->queue.front();

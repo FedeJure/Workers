@@ -2,7 +2,6 @@
 #define GATHERER_H
 #include "./Worker.h"
 #include "./BlockingQueue.h"
-#include "./BenefitPointRepository.h"
 #include "./Inventory.h"
 #include "./Material.h"
 

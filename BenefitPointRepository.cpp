@@ -1,4 +1,5 @@
 #include "./BenefitPointRepository.h"
+#include <iostream>
 
 int BenefitPointRepository::get() {
     std::unique_lock<std::mutex> lock(m);

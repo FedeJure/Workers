@@ -6,45 +6,17 @@
 #include "./Material.h"
 #include "./BenefitPointRepository.h"
 
-// template<>
-// Worker<Material, BenefitPoints>;
-// class Producer: public Worker<Material, BenefitPoints> {
-//     BenefitPointRepository* repository;
-//     public:
-//     Producer(BlockingQueue<Material, BenefitPoints>& providedQueue,
-//             BenefitPointRepository& repository) : Worker<Material, BenefitPoints>(providedQueue) {
-//         this->repository = &repository;
-//     }
-    
-//     virtual ~Producer() {
-
-//     }
-//     protected:
-//     virtual void saveWork(BenefitPoints values);
-// };
-
-class Producer {
-    std::thread thread;
-    BlockingQueue<Material, BenefitPoints>* queue;
+class Producer: public Worker<Material, BenefitPoints> {
     BenefitPointRepository* repository;
-
-    
-
     public:
     Producer(BlockingQueue<Material, BenefitPoints>& providedQueue,
-            BenefitPointRepository& repository) :
-        thread(&Producer::work, this){
-            this->repository = &repository;
-            this->queue = &providedQueue;
-        }
-    void work();
-
-    void waitUntilTerminate() {
-        this->thread.join();
+            BenefitPointRepository& repository) : Worker<Material, BenefitPoints>(providedQueue) {
+        this->repository = &repository;
     }
-    void saveWork(BenefitPoints value);
-    bool wakeupCondition();
-    void makeJob();
+    
+    virtual ~Producer() {}
+    protected:
+    virtual void saveWork(BenefitPoints values);
 };
 
 

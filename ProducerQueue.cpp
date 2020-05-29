@@ -11,7 +11,9 @@ bool ChefQueue::_continueCondition() {
     neededMaterials.push_back(std::pair<Material, int>(Coal, 1));
     return this->inventory->extractMaterials(neededMaterials);
 }
-
+void ChefQueue::notify() {
+    BlockingQueue::notify();
+}
 
 BenefitPoints WheaponsmithQueue::_pop() {
     BenefitPoints points = WeaponsmithPoints;
@@ -22,6 +24,9 @@ bool WheaponsmithQueue::_continueCondition() {
     neededMaterials.push_back(std::pair<Material, int>(Iron, 2));
     neededMaterials.push_back(std::pair<Material, int>(Coal, 2));
     return this->inventory->extractMaterials(neededMaterials);
+}
+void WheaponsmithQueue::notify() {
+    BlockingQueue::notify();
 }
 
 
@@ -34,4 +39,7 @@ bool CarpenterQueue::_continueCondition() {
     neededMaterials.push_back(std::pair<Material, int>(Wood, 3));
     neededMaterials.push_back(std::pair<Material, int>(Iron, 1));
     return this->inventory->extractMaterials(neededMaterials);
+}
+void CarpenterQueue::notify() {
+    BlockingQueue::notify();
 }

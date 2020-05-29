@@ -31,7 +31,9 @@ int main() {
 
     // los trabajadores empiezan a consumir
     WorkersFactory factory(spawner);
-    
+    chefQueue.shutdown();
+    carpenterQueue.shutdown();
+    weaponsmithQueue.shutdown();
     spawner.waitUntilFinish();
     processor.waitUntilFinish();
 
