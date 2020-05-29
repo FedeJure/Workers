@@ -1,17 +1,23 @@
 #include "./Main.h"
 
 int main() {
+    // recursos
     Inventory inventory;
+    BenefitPointRepository benefitPoints;
+
+    // colas bloqueantes
     BlockingQueue<Material, Material> farmerQueue;
     BlockingQueue<Material, Material> woodcutterQueue;
     BlockingQueue<Material, Material> minerQueue;
-    BenefitPointRepository benefitPoints;
     ChefQueue chefQueue(inventory);
     CarpenterQueue carpenterQueue(inventory);
     WheaponsmithQueue weaponsmithQueue(inventory);
 
+    // empieza procesamiento, se empiezan a llenar las colas
+    ResourcesProcessor processor(farmerQueue,
+                                woodcutterQueue,
+                                minerQueue);
 
-    ResourcesProcessor processor(farmerQueue, woodcutterQueue, minerQueue);
     GatherersSpawner spawner(inventory,
                             farmerQueue,
                             woodcutterQueue,
@@ -20,9 +26,10 @@ int main() {
                             chefQueue,
                             carpenterQueue,
                             weaponsmithQueue);
-    WorkersFactory factory(spawner);
+    
 
-    factory.createWorkersFromFile();
+    // los trabajadores empiezan a consumir
+    WorkersFactory factory(spawner);
     
     spawner.waitUntilFinish();
     processor.waitUntilFinish();

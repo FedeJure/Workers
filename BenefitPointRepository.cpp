@@ -5,7 +5,7 @@ int BenefitPointRepository::get() {
     return points;
 }
 
-void BenefitPointRepository::add(int value) {
+void BenefitPointRepository::add(BenefitPoints value) {
     std::unique_lock<std::mutex> lock(m);
     points += value;
 }

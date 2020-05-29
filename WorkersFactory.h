@@ -20,15 +20,17 @@ class WorkersFactory {
     std::ifstream file;
     std::map<std::string, int> spawnMap;
     GatherersSpawner* spawner;
+    void createWorkersFromFile();
+
     public:
     WorkersFactory(GatherersSpawner& spawner) : file("trabajadores.txt") {
         this->spawner = &spawner;
         for (std::string key : keys) {
             spawnMap[key] = 0;
         }
+        this->createWorkersFromFile();
     }
 
-    void createWorkersFromFile();
 
     ~WorkersFactory() {
         file.close();

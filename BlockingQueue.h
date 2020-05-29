@@ -9,24 +9,24 @@
 
 template<typename T, typename U>
 class BlockingQueue {
-private:
+    private:
     std::queue<T> queue;
     std::mutex notifierMutex;
     std::condition_variable notEmpty;
     bool working = true;
     bool notified = false;
 
-public:
+    public:
     inline BlockingQueue(){}
 
-    inline void push(const T elem) {
+    void push(const T elem) {
         std::unique_lock<std::mutex> lock(notifierMutex);
         queue.push(elem);
         notEmpty.notify_all();
         notified = true;
     }
 
-    inline Maybe<U> pop() {
+    Maybe<U> pop() {
         std::unique_lock<std::mutex> lock(notifierMutex);
         while(!_continueCondition()) {
             if (!working) {
@@ -42,7 +42,7 @@ public:
         return toReturn;
     }
 
-    inline void shutdown() {
+    void shutdown() {
         std::unique_lock<std::mutex> lock(notifierMutex);
         working = false;
         notEmpty.notify_all();

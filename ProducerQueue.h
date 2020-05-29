@@ -4,12 +4,7 @@
 #include "./Material.h"
 #include "./BlockingQueue.h"
 #include "./Inventory.h"
-
-enum BenefitPoints {
-    ChefPoint = 5,
-    CarpenterPoint = 2,
-    WeaponsmithPoints = 3
-};
+#include "./BenefitPointRepository.h"
 
 template<>
 class BlockingQueue<Material, BenefitPoints> {
@@ -17,40 +12,45 @@ class BlockingQueue<Material, BenefitPoints> {
     public:
     BlockingQueue() { }
 
-    protected:
+    virtual void push(const BenefitPoints elem);
+
+    virtual Maybe<BenefitPoints> pop();
+
     virtual BenefitPoints _pop() = 0;
     virtual bool _continueCondition() = 0;
 
 };
 
-class ChefQueue: BlockingQueue<Material, BenefitPoints> {
+class ChefQueue: public BlockingQueue<Material, BenefitPoints> {
     Inventory* inventory;
     public:
     ChefQueue(Inventory& inventory) : BlockingQueue<Material, BenefitPoints>() {
         this->inventory = &inventory;
     }
-
+    Maybe<BenefitPoints> pop();
     virtual BenefitPoints _pop();
     virtual bool _continueCondition();
 };
 
-class CarpenterQueue: BlockingQueue<Material, BenefitPoints> {
+class CarpenterQueue: public BlockingQueue<Material, BenefitPoints> {
     Inventory* inventory;
     public:
     CarpenterQueue(Inventory& inventory) : BlockingQueue<Material, BenefitPoints>() {
         this->inventory = &inventory;
     }
+    Maybe<BenefitPoints> pop();
 
     virtual BenefitPoints _pop();
     virtual bool _continueCondition();
 };
 
-class WheaponsmithQueue: BlockingQueue<Material, BenefitPoints> {
+class WheaponsmithQueue: public BlockingQueue<Material, BenefitPoints> {
     Inventory* inventory;
     public:
     WheaponsmithQueue(Inventory& inventory) : BlockingQueue<Material, BenefitPoints>() {
         this->inventory = &inventory;
     }
+    Maybe<BenefitPoints> pop();
 
     virtual BenefitPoints _pop();
     virtual bool _continueCondition();

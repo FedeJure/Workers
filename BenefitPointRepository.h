@@ -3,13 +3,18 @@
 
 #include <mutex>
 
+enum BenefitPoints {
+    ChefPoint = 5,
+    CarpenterPoint = 2,
+    WeaponsmithPoints = 3
+};
 class BenefitPointRepository {
     int points;
     std::mutex m;
     
     public:
     BenefitPointRepository() {}
-    void add(int value);
+    void add(BenefitPoints value);
     int get();
 };
 

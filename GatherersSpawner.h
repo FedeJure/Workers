@@ -1,7 +1,8 @@
 #ifndef GATHERERS_SPAWNER_H_
 #define GATHERERS_SPAWNER_H_
 #include "./BlockingQueue.h"
-#include "./Worker.h"
+#include "./Gatherer.h"
+#include "./Producer.h"
 #include "./Inventory.h"
 #include "./ProducerQueue.h"
 #include "./BenefitPointRepository.h"
@@ -16,11 +17,12 @@ class GatherersSpawner {
     WheaponsmithQueue* weaponsmithQueue;
     BenefitPointRepository* benefitPoints;
     Inventory* inventory;
-    std::vector<Gatherer*> workers;
+    std::vector<Gatherer*> gatherers;
+    std::vector<Producer*> producers;
 
     public:
     GatherersSpawner(Inventory& inventory,
-            BlockingQueue<Material, Material> &FarmerQueue,
+            BlockingQueue<Material, Material>& FarmerQueue,
             BlockingQueue<Material, Material>& WoodcutterQueue,
             BlockingQueue<Material, Material>& MinerQueue,
             BenefitPointRepository& benefitPoints,
@@ -44,6 +46,7 @@ class GatherersSpawner {
 
     private:
     void spawnWorker(int count, BlockingQueue<Material, Material>& queue);
+    void spawnWorker(int count, BlockingQueue<Material, BenefitPoints>& queue);
 };
 
 #endif
