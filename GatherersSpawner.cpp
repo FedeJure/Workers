@@ -5,38 +5,35 @@ void GatherersSpawner::spawnWorkers(int farmers, int woodcutter, int miner,
     spawnWorker(farmers, *this->FarmerQueue);
     spawnWorker(woodcutter, *this->WoodcutterQueue);
     spawnWorker(miner, *this->MinerQueue);
-    spawnWorker(chef, *this->chefQueue);
-    spawnWorker(carpenter, *this->carpenterQueue);
-    spawnWorker(weaponsmith, *this->weaponsmithQueue);
+    spawnWorker(chef, *this->producersQueue);
+    spawnWorker(carpenter, *this->producersQueue);
+    spawnWorker(weaponsmith, *this->producersQueue);
 }
 
-void GatherersSpawner::spawnWorker(int count, BlockingQueue<Material, Material>& queue) {
+void GatherersSpawner::spawnWorker(int count, MaterialQueue& queue) {
     for (int i = 0; i < count; i++)
     {
         Gatherer* newWorker = new Gatherer(queue, *this->inventory);
-        gatherers.push_back(newWorker);
+        workers.push_back(newWorker);
     }
 }
 
-void GatherersSpawner::spawnWorker(int count, BlockingQueue<Material, BenefitPoints>& queue) {
+void GatherersSpawner::spawnWorker(int count, InventoryQueue& queue) {
     for (int i = 0; i < count; i++)
     {
         Producer* newWorker = new Producer(queue, *this->benefitPoints);
-        producers.push_back(newWorker);
+        workers.push_back(newWorker);
     }
 }
 
 GatherersSpawner::~GatherersSpawner() {
-    for (Gatherer* w : gatherers) {
+    for (Worker* w : workers) {
         delete w;
     }   
 }
 
 void GatherersSpawner::waitUntilFinish() {
-    for (Gatherer* w : gatherers) {
-        w->waitUntilTerminate();
-    }
-    for (Producer* w : producers) {
+    for (Worker* w : workers) {
         w->waitUntilTerminate();
     }
 

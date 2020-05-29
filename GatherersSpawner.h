@@ -1,42 +1,35 @@
 #ifndef GATHERERS_SPAWNER_H_
 #define GATHERERS_SPAWNER_H_
-#include "./BlockingQueue.h"
+#include "./MaterialQueue.h"
 #include "./Gatherer.h"
 #include "./Producer.h"
-#include "./Inventory.h"
+#include "./InventoryQueue.h"
 #include "./ProducerQueue.h"
 #include "./BenefitPointRepository.h"
 #include <vector>
 
 class GatherersSpawner {
-    BlockingQueue<Material, Material>* FarmerQueue;
-    BlockingQueue<Material, Material>* WoodcutterQueue;
-    BlockingQueue<Material, Material>* MinerQueue;
-    ChefQueue* chefQueue;
-    CarpenterQueue* carpenterQueue;
-    WheaponsmithQueue* weaponsmithQueue;
+    MaterialQueue* FarmerQueue;
+    MaterialQueue* WoodcutterQueue;
+    MaterialQueue* MinerQueue;
+    InventoryQueue* producersQueue;
     BenefitPointRepository* benefitPoints;
-    Inventory* inventory;
-    std::vector<Gatherer*> gatherers;
-    std::vector<Producer*> producers;
+    InventoryQueue* inventory;
+    std::vector<Worker*> workers;
 
     public:
-    GatherersSpawner(Inventory& inventory,
-            BlockingQueue<Material, Material>& FarmerQueue,
-            BlockingQueue<Material, Material>& WoodcutterQueue,
-            BlockingQueue<Material, Material>& MinerQueue,
+    GatherersSpawner(InventoryQueue& inventory,
+            MaterialQueue& FarmerQueue,
+            MaterialQueue& WoodcutterQueue,
+            MaterialQueue& MinerQueue,
             BenefitPointRepository& benefitPoints,
-            ChefQueue& chefQueue,
-            CarpenterQueue& carpenterQueue,
-            WheaponsmithQueue& weaponsmithQueue){
+            InventoryQueue& producersQueue){
                 this->FarmerQueue = &FarmerQueue;
                 this->WoodcutterQueue = &WoodcutterQueue;
                 this->MinerQueue = &MinerQueue;
                 this->inventory = &inventory;
                 this->benefitPoints = &benefitPoints;
-                this->chefQueue = &chefQueue;
-                this->carpenterQueue = &carpenterQueue;
-                this->weaponsmithQueue = &weaponsmithQueue;
+                this->producersQueue = &producersQueue;
             }
     ~GatherersSpawner();
 
@@ -45,8 +38,8 @@ class GatherersSpawner {
     void waitUntilFinish();
 
     private:
-    void spawnWorker(int count, BlockingQueue<Material, Material>& queue);
-    void spawnWorker(int count, BlockingQueue<Material, BenefitPoints>& queue);
+    void spawnWorker(int count, MaterialQueue& queue);
+    void spawnWorker(int count, InventoryQueue& queue);
 };
 
 #endif

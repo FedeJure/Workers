@@ -1,5 +1,5 @@
 #include "./GatherersSpawner.h"
-#include "./Inventory.h"
+#include "./InventoryQueue.h"
 #include "./ResourcesProcessor.h"
 #include "./WorkersFactory.h"
 #include "./ProducerQueue.h"

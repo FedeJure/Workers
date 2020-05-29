@@ -2,16 +2,13 @@
 
 int main() {
     // recursos
-    Inventory inventory;
+    InventoryQueue inventory;
     BenefitPointRepository benefitPoints;
 
     // colas bloqueantes
-    BlockingQueue<Material, Material> farmerQueue;
-    BlockingQueue<Material, Material> woodcutterQueue;
-    BlockingQueue<Material, Material> minerQueue;
-    ChefQueue chefQueue(inventory);
-    CarpenterQueue carpenterQueue(inventory);
-    WheaponsmithQueue weaponsmithQueue(inventory);
+    MaterialQueue farmerQueue;
+    MaterialQueue woodcutterQueue;
+    MaterialQueue minerQueue;
 
     // empieza procesamiento, se empiezan a llenar las colas
     ResourcesProcessor processor(farmerQueue,
@@ -23,17 +20,12 @@ int main() {
                             woodcutterQueue,
                             minerQueue,
                             benefitPoints,
-                            chefQueue,
-                            carpenterQueue,
-                            weaponsmithQueue);
+                            inventory);
     
     
 
     // los trabajadores empiezan a consumir
     WorkersFactory factory(spawner);
-    chefQueue.shutdown();
-    carpenterQueue.shutdown();
-    weaponsmithQueue.shutdown();
     spawner.waitUntilFinish();
     processor.waitUntilFinish();
 

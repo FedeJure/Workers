@@ -1,21 +1,21 @@
 #ifndef GATHERER_H_
 #define GATHERER_H
 #include "./Worker.h"
-#include "./BlockingQueue.h"
-#include "./Inventory.h"
+#include "./MaterialQueue.h"
+#include "./InventoryQueue.h"
 #include "./Material.h"
 
-class Gatherer: public Worker<Material, Material> {
-    Inventory* inventory;
+class Gatherer: public Worker {
+    InventoryQueue* inventory;
+    MaterialQueue* queue;
     public:
-    Gatherer(BlockingQueue<Material, Material>& providedQueue,
-            Inventory& inventory) : Worker<Material, Material>(providedQueue) {
+    Gatherer(MaterialQueue& providedQueue,
+            InventoryQueue& inventory) : Worker() {
         this->inventory = &inventory;
+        this->queue = &providedQueue;
     }
-    
+    virtual void work();
     virtual ~Gatherer() {}
-    protected:
-    virtual void saveWork(Material values);
 };
 
 #endif

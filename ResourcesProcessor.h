@@ -2,22 +2,21 @@
 #include <map>
 #include <iostream>
 #include "./Material.h"
-#include "./BlockingQueue.h"
 class ResourcesProcessor {
     std::string fileName = "mapa.txt";
     std::ifstream file;
     std::thread thread;
-    BlockingQueue<Material, Material> *FarmerQueue;
-    BlockingQueue<Material, Material> *WoodcutterQueue;
-    BlockingQueue<Material, Material> *MinerQueue;
+    MaterialQueue *FarmerQueue;
+    MaterialQueue *WoodcutterQueue;
+    MaterialQueue *MinerQueue;
 
     void process();
 
     public:
     ResourcesProcessor(
-        BlockingQueue<Material, Material> &FarmerQueue,
-        BlockingQueue<Material, Material>& WoodcutterQueue,
-        BlockingQueue<Material, Material>& MinerQueue
+        MaterialQueue& FarmerQueue,
+        MaterialQueue& WoodcutterQueue,
+        MaterialQueue& MinerQueue
     ) : file(fileName), thread(&ResourcesProcessor::process, this) {
         this->FarmerQueue = &FarmerQueue;
         this->WoodcutterQueue = &WoodcutterQueue;
