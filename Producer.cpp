@@ -25,3 +25,25 @@ bool Chef::continueCondition(InventoryQueue& inventory) {
 BenefitPoints Chef::processMaterials(std::vector<Material>& materials) {
     return ChefPoint;
 }
+
+std::vector<std::pair<Material, size_t>> Carpenter::requiredMaterials() {
+    return neededMaterials;
+}
+bool Carpenter::continueCondition(InventoryQueue& inventory) {
+    bool condition = inventory.hasEnoughMaterials(neededMaterials);
+    return condition;
+}
+BenefitPoints Carpenter::processMaterials(std::vector<Material>& materials) {
+    return CarpenterPoint;
+}
+
+std::vector<std::pair<Material, size_t>> Weaponsmith::requiredMaterials() {
+    return neededMaterials;
+}
+bool Weaponsmith::continueCondition(InventoryQueue& inventory) {
+    bool condition = inventory.hasEnoughMaterials(neededMaterials);
+    return condition;
+}
+BenefitPoints Weaponsmith::processMaterials(std::vector<Material>& materials) {
+    return WeaponsmithPoints;
+}

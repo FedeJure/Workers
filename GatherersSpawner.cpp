@@ -2,12 +2,12 @@
 
 void GatherersSpawner::spawnWorkers(int farmers, int woodcutter, int miner,
                                     int chef, int carpenter, int weaponsmith) {
-    spawnWorker(farmers, *this->FarmerQueue);
-    spawnWorker(woodcutter, *this->WoodcutterQueue);
-    spawnWorker(miner, *this->MinerQueue);
-    spawnWorker(chef, *this->producersQueue);
-    spawnWorker(carpenter, *this->producersQueue);
-    spawnWorker(weaponsmith, *this->producersQueue);
+    spawnWorker(farmers, *FarmerQueue);
+    spawnWorker(woodcutter, *WoodcutterQueue);
+    spawnWorker(miner, *MinerQueue);
+    spawnProducer<Chef>(chef, *producersQueue, *benefitPoints, producers);
+    spawnProducer<Carpenter>(carpenter, *producersQueue, *benefitPoints, producers);
+    spawnProducer<Weaponsmith>(weaponsmith, *producersQueue, *benefitPoints, producers);
 }
 
 void GatherersSpawner::spawnWorker(int count, MaterialQueue& queue) {
@@ -15,14 +15,6 @@ void GatherersSpawner::spawnWorker(int count, MaterialQueue& queue) {
     {
         Gatherer* newWorker = new Gatherer(queue, *this->producersQueue);
         gatherers.push_back(std::move(newWorker));
-    }
-}
-
-void GatherersSpawner::spawnWorker(int count, InventoryQueue& queue) {
-    for (int i = 0; i < count; i++)
-    {
-        Producer* newWorker = new Chef(queue, *this->benefitPoints);
-        producers.push_back(std::move(newWorker));
     }
 }
 

@@ -37,7 +37,16 @@ class GatherersSpawner {
 
     private:
     void spawnWorker(int count, MaterialQueue& queue);
-    void spawnWorker(int count, InventoryQueue& queue);
 };
+
+template<typename T>
+void spawnProducer(int count, InventoryQueue& source,
+                    BenefitPointRepository& deposit,
+                    std::vector<Producer*>& contenedor) {
+    for (int i = 0; i < count; i++) {
+        T* newWorker = new T(source, deposit);
+        contenedor.push_back(std::move(newWorker));
+    }
+}
 
 #endif

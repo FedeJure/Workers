@@ -34,6 +34,34 @@ class Chef: public Producer {
     virtual BenefitPoints processMaterials(std::vector<Material>& materials);
 };
 
+class Carpenter: public Producer {
+    std::vector<std::pair<Material, size_t>> neededMaterials {
+        std::pair<Material, size_t>(Wheat, 2),
+        std::pair<Material, size_t>(Coal, 1)
+    };
+    public:
+    Carpenter(InventoryQueue& providedQueue,
+            BenefitPointRepository& repository)
+            : Producer(providedQueue,repository) {}
+    virtual std::vector<std::pair<Material, size_t>> requiredMaterials();
+    virtual bool continueCondition(InventoryQueue& inventory);
+    virtual BenefitPoints processMaterials(std::vector<Material>& materials);
+};
+
+class Weaponsmith: public Producer {
+    std::vector<std::pair<Material, size_t>> neededMaterials {
+        std::pair<Material, size_t>(Wheat, 2),
+        std::pair<Material, size_t>(Coal, 1)
+    };
+    public:
+    Weaponsmith(InventoryQueue& providedQueue,
+            BenefitPointRepository& repository)
+            : Producer(providedQueue,repository) {}
+    virtual std::vector<std::pair<Material, size_t>> requiredMaterials();
+    virtual bool continueCondition(InventoryQueue& inventory);
+    virtual BenefitPoints processMaterials(std::vector<Material>& materials);
+};
+
 
 
 #endif
