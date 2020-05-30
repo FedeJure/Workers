@@ -1,6 +1,8 @@
 #ifndef PRODUCER_H_
 #define PRODUCER_H_
 #include <initializer_list>
+#include <utility>
+#include <vector>
 #include "./InventoryQueue.h"
 #include "./Worker.h"
 #include "./Material.h"

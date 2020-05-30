@@ -11,8 +11,7 @@ class Worker {
     Worker() : thread(&Worker::work, this) {}
     virtual void waitUntilTerminate();
     virtual void work() = 0;
-    virtual ~Worker() {};
-    protected:
+    virtual ~Worker() {}
 };
 
 #endif

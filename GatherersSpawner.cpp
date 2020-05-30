@@ -6,8 +6,10 @@ void GatherersSpawner::spawnWorkers(int farmers, int woodcutter, int miner,
     spawnWorker(woodcutter, *WoodcutterQueue);
     spawnWorker(miner, *MinerQueue);
     spawnProducer<Chef>(chef, *producersQueue, *benefitPoints, producers);
-    spawnProducer<Carpenter>(carpenter, *producersQueue, *benefitPoints, producers);
-    spawnProducer<Weaponsmith>(weaponsmith, *producersQueue, *benefitPoints, producers);
+    spawnProducer<Carpenter>
+        (carpenter, *producersQueue, *benefitPoints, producers);
+    spawnProducer<Weaponsmith>
+        (weaponsmith, *producersQueue, *benefitPoints, producers);
 }
 
 void GatherersSpawner::spawnWorker(int count, MaterialQueue& queue) {
@@ -36,6 +38,4 @@ void GatherersSpawner::waitUntilFinish() {
     for (Producer* p : producers) {
         p->waitUntilTerminate();
     }
-
-    
 }

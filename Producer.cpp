@@ -1,15 +1,17 @@
+#include <vector>
+#include <utility>
 #include "./Producer.h"
 
 void Producer::work() {
-    while(1) {
+    while (1) {
         Maybe<BenefitPoints> value = this->inventory->pop(*this);
-        if (value.hasValue()) { 
-
+        if (value.hasValue()) {
             std::chrono::milliseconds work_time(60);
             std::this_thread::sleep_for(work_time);
             this->repository->add(value.getValue());
+        } else {
+            break;
         }
-        else break;
     }
     fflush(stdout);
 }

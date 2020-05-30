@@ -1,3 +1,6 @@
+#ifndef RESOURCE_PROVIDER_H_
+#define RESOURCE_PROVIDER_H_
+
 #include "./MaterialQueue.h"
 #include "./Material.h"
 
@@ -16,3 +19,5 @@ class ProvideResource {
         queue->shutdown();
     }
 };
+
+#endif

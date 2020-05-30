@@ -7,7 +7,7 @@ class Maybe {
         T value;
         bool empty;
     public:
-    Maybe(T& providedValue) : empty(false) {value = providedValue;}
+    explicit Maybe(T& providedValue) : empty(false) {value = providedValue;}
     Maybe() : empty(true) {}
     bool hasValue() {return !empty;}
     T getValue() { return this->value; }

@@ -2,7 +2,7 @@
 #define RESOURCES_PROCESSOR_H
 #include <fstream>
 #include <map>
-#include <iostream>
+#include <string>
 #include <thread>
 #include "./Material.h"
 #include "./MaterialQueue.h"
@@ -20,8 +20,8 @@ class ResourcesProcessor {
     ResourcesProcessor(
         MaterialQueue& FarmerQueue,
         MaterialQueue& WoodcutterQueue,
-        MaterialQueue& MinerQueue
-    ) : file(fileName), thread(&ResourcesProcessor::process, this) {
+        MaterialQueue& MinerQueue) 
+        : file(fileName), thread(&ResourcesProcessor::process, this) {
         this->FarmerQueue = &FarmerQueue;
         this->WoodcutterQueue = &WoodcutterQueue;
         this->MinerQueue = &MinerQueue;

@@ -4,7 +4,6 @@
 #include <fstream>
 #include <string>
 #include <regex>
-#include <iostream>
 #include <map>
 #include <vector>
 #include "./GatherersSpawner.h"
@@ -23,7 +22,8 @@ class WorkersFactory {
     void createWorkersFromFile();
 
     public:
-    WorkersFactory(GatherersSpawner& spawner) : file("trabajadores.txt") {
+    explicit WorkersFactory(GatherersSpawner& spawner) 
+    : file("trabajadores.txt") {
         this->spawner = &spawner;
         for (std::string key : keys) {
             spawnMap[key] = 0;

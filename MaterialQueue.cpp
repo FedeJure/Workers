@@ -9,11 +9,11 @@ void MaterialQueue::push(const Material elem) {
 
 Maybe<Material> MaterialQueue::pop(Gatherer& worker) {
     std::unique_lock<std::mutex> lock(notifierMutex);
-    while(this->materials.empty()) {
+    while (this->materials.empty()) {
         if (!working) {
             return Maybe<Material>::nothing();
         }
-        while(!notified) {
+        while (!notified) {
             sleepCondition.wait(lock);
         }
     }

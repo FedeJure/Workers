@@ -11,7 +11,6 @@
 #include "./BenefitPointRepository.h"
 #include "./Producer.h"
 #include "./Maybe.h"
-#include "./ProtectedMap.h"
 class Producer;
 class InventoryQueue {
     std::mutex notifierMutex;
@@ -26,6 +25,9 @@ class InventoryQueue {
     bool working = true;
     bool notified = false;
 
+    void extractMaterialsToProcess(
+            std::vector<std::pair<Material, size_t>>& materials,
+            std::vector<Material>& toProcess);
 
     public:
     InventoryQueue() {}
@@ -33,13 +35,9 @@ class InventoryQueue {
     void push(const Material material);
     virtual Maybe<BenefitPoints> pop(Producer& worker);
     void shutdown();
-    bool hasEnoughMaterials(std::vector<std::pair<Material, size_t>>& materials);
+    bool hasEnoughMaterials(
+        std::vector<std::pair<Material, size_t>>& materials);
     void printRemainingMaterials();
-    private:
-    void extractMaterialsToProcess(
-                std::vector<std::pair<Material, size_t>>& materials,
-                std::vector<Material>& toProcess);
-
 };
 
 #endif

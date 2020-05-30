@@ -1,7 +1,7 @@
+#include <string>
 #include "./ResourcesProcessor.h"
 
 void ResourcesProcessor::process() {
-    
     std::string line;
     while (getline(file, line)) {
         for (size_t i = 0; i < line.size(); i++)
@@ -23,8 +23,7 @@ void ResourcesProcessor::process() {
     }
     FarmerQueue->shutdown();
     MinerQueue->shutdown();
-    WoodcutterQueue->shutdown();
-    
+    WoodcutterQueue->shutdown(); 
 }
 
 void ResourcesProcessor::waitUntilFinish() {

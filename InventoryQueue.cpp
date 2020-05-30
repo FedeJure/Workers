@@ -1,6 +1,9 @@
+#include <vector>
+#include <utility>
 #include "./InventoryQueue.h"
 
-bool InventoryQueue::hasEnoughMaterials(std::vector<std::pair<Material, size_t>>& materials) {
+bool InventoryQueue::hasEnoughMaterials(
+    std::vector<std::pair<Material, size_t>>& materials) {
     std::unique_lock<std::mutex> lock(inventaryMutex);
     bool hasEnough = true;
     
@@ -18,17 +21,17 @@ bool InventoryQueue::hasEnoughMaterials(std::vector<std::pair<Material, size_t>>
 Maybe<BenefitPoints> InventoryQueue::pop(Producer& worker) {
     std::unique_lock<std::mutex> lock(notifierMutex);
 
-    while(!worker.continueCondition(*this)) {
-
+    while (!worker.continueCondition(*this)) {
         if (!working) {
             return Maybe<BenefitPoints>::nothing();
         }
-        while(!notified) {
+        while (!notified) {
             sleepCondition.wait(lock);
             if (!working) return Maybe<BenefitPoints>::nothing();
         }
     }
-    std::vector<std::pair<Material, size_t>> materials = worker.requiredMaterials();
+    std::vector<std::pair<Material, size_t>> materials = 
+        worker.requiredMaterials();
     std::vector<Material> toProcess;
     extractMaterialsToProcess(materials, toProcess);
     BenefitPoints points = worker.processMaterials(toProcess);

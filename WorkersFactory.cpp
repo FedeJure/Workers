@@ -1,3 +1,4 @@
+#include <string>
 #include "./WorkersFactory.h"
 
 void WorkersFactory::createWorkersFromFile() {
