@@ -1,6 +1,6 @@
 #include "./InventoryQueue.h"
 
-Maybe<BenefitPoints> InventoryQueue::pop(Producer& const worker) {
+Maybe<BenefitPoints> InventoryQueue::pop(Producer& worker) {
     std::unique_lock<std::mutex> lock(notifierMutex);
     while(worker.continueCondition(*this)) {
         if (!working) {

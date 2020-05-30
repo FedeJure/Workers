@@ -1,5 +1,5 @@
-#ifndef INVENTORY_H_
-#define INVENTORY_H_
+#ifndef INVENTORY_QUEUE_H_
+#define INVENTORY_QUEUE_H_
 
 #include <map>
 #include <mutex>
@@ -11,7 +11,7 @@
 #include "./BenefitPointRepository.h"
 #include "./Producer.h"
 #include "./Maybe.h"
-
+class Producer;
 class InventoryQueue {
     std::mutex notifierMutex;
     std::condition_variable sleepCondition;
@@ -21,7 +21,7 @@ class InventoryQueue {
 
 
     public:
-    inline InventoryQueue() {
+    InventoryQueue() {
         container[Wheat] = std::vector<Material>();
         container[Wood] = std::vector<Material>();
         container[Iron] = std::vector<Material>();
@@ -29,7 +29,7 @@ class InventoryQueue {
     }
 
     void push(const Material material);
-    Maybe<BenefitPoints> pop(Producer& const worker);
+    virtual Maybe<BenefitPoints> pop(Producer& worker);
     void shutdown();
 
     private:
@@ -38,4 +38,5 @@ class InventoryQueue {
                 std::vector<Material>& toProcess);
 
 };
+
 #endif

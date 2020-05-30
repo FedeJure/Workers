@@ -1,9 +1,9 @@
 #ifndef GATHERER_H_
-#define GATHERER_H
+#define GATHERER_H_     
 #include "./Worker.h"
 #include "./MaterialQueue.h"
 #include "./InventoryQueue.h"
-
+class MaterialQueue;
 class Gatherer: public Worker {
     InventoryQueue* inventory;
     MaterialQueue* queue;
@@ -13,8 +13,8 @@ class Gatherer: public Worker {
         this->inventory = &inventory;
         this->queue = &providedQueue;
     }
+    ~Gatherer() {}
     virtual void work();
-    virtual ~Gatherer() {}
 };
 
 #endif

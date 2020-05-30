@@ -1,3 +1,5 @@
+#ifndef RESOURCES_PROCESSOR_H
+#define RESOURCES_PROCESSOR_H
 #include <fstream>
 #include <map>
 #include <iostream>
@@ -31,3 +33,5 @@ class ResourcesProcessor {
         file.close();
     }
 };
+
+#endif
