@@ -1,7 +1,9 @@
 #include "./InventoryQueue.h"
 
 bool InventoryQueue::hasEnoughMaterials(std::vector<std::pair<Material, size_t>>& materials) {
+    std::unique_lock<std::mutex> lock(inventaryMutex);
     bool hasEnough = true;
+    
     for (std::pair<Material, size_t> pair : materials) {
         if (this->container[pair.first].size() < pair.second) {
             hasEnough = false;
@@ -9,23 +11,23 @@ bool InventoryQueue::hasEnoughMaterials(std::vector<std::pair<Material, size_t>>
             break;
         }
     }
+    notified = hasEnough;
     return hasEnough;
 }
 
 Maybe<BenefitPoints> InventoryQueue::pop(Producer& worker) {
     std::unique_lock<std::mutex> lock(notifierMutex);
+
     while(!worker.continueCondition(*this)) {
+
         if (!working) {
             return Maybe<BenefitPoints>::nothing();
         }
         while(!notified) {
-            fflush(stdout);
             sleepCondition.wait(lock);
+            if (!working) return Maybe<BenefitPoints>::nothing();
         }
     }
-    std::cout<<"pop\n";
-    fflush(stdout);
-    notified = false;
     std::vector<std::pair<Material, size_t>> materials = worker.requiredMaterials();
     std::vector<Material> toProcess;
     extractMaterialsToProcess(materials, toProcess);
@@ -36,17 +38,13 @@ Maybe<BenefitPoints> InventoryQueue::pop(Producer& worker) {
 
 
 void InventoryQueue::push(const Material material) {
-    std::unique_lock<std::mutex> lock(inventaryMutex);
-    std::cout<<"push\n";
-    fflush(stdout);
+    std::unique_lock<std::mutex> lock(notifierMutex);
     container[material].push_back(material);
     sleepCondition.notify_all();
     notified = true;
 }
 void InventoryQueue::shutdown() {
-    std::unique_lock<std::mutex> lock(inventaryMutex);
-    std::cout<<"shutdown\n";
-    fflush(stdout);
+    std::unique_lock<std::mutex> lock(notifierMutex);
     working = false;
     sleepCondition.notify_all();
 }
@@ -54,10 +52,7 @@ void InventoryQueue::shutdown() {
 void InventoryQueue::extractMaterialsToProcess(
                 std::vector<std::pair<Material, size_t>>& materials,
                 std::vector<Material>& toProcess) {
-
-    std::lock_guard<std::mutex> lock(inventaryMutex);
-    std::cout<<"extractMATERIALS\n";
-    fflush(stdout);
+    std::unique_lock<std::mutex> lock(inventaryMutex);
     for (std::pair<Material, size_t> par : materials) {
         while (par.second > 0)  {
             toProcess.push_back(container[par.first].back());
@@ -74,4 +69,5 @@ void InventoryQueue::printRemainingMaterials() {
     std::cout<<"  - Madera: "<<container[Wood].size()<<"\n";
     std::cout<<"  - Carbon: "<<container[Coal].size()<<"\n";
     std::cout<<"  - Hierro: "<<container[Iron].size()<<"\n";
+    fflush(stdout);
 }

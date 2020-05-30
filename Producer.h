@@ -8,6 +8,8 @@ class InventoryQueue;
 class Producer: public Worker {
     BenefitPointRepository* repository;
     InventoryQueue* inventory;
+    std::vector<std::pair<Material, size_t>> neededMaterials;
+    BenefitPoints pointsOnProcess;
     public:
     Producer(InventoryQueue& providedQueue, BenefitPointRepository& repository) {
         this->repository = &repository;

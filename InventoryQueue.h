@@ -11,6 +11,7 @@
 #include "./BenefitPointRepository.h"
 #include "./Producer.h"
 #include "./Maybe.h"
+#include "./ProtectedMap.h"
 class Producer;
 class InventoryQueue {
     std::mutex notifierMutex;
