@@ -1,5 +1,6 @@
 #ifndef PRODUCER_H_
 #define PRODUCER_H_
+#include <initializer_list>
 #include "./InventoryQueue.h"
 #include "./Worker.h"
 #include "./Material.h"
@@ -11,57 +12,54 @@ class Producer: public Worker {
     std::vector<std::pair<Material, size_t>> neededMaterials;
     BenefitPoints pointsOnProcess;
     public:
-    Producer(InventoryQueue& providedQueue, BenefitPointRepository& repository) {
+    Producer(InventoryQueue& providedQueue, BenefitPointRepository& repository,
+        std::initializer_list<std::pair<Material, size_t>> materials,
+        BenefitPoints points): 
+        neededMaterials(materials), pointsOnProcess(points) {
         this->repository = &repository;
         this->inventory = &providedQueue;
     }
     virtual void work();
-    virtual std::vector<std::pair<Material, size_t>> requiredMaterials() = 0;
-    virtual bool continueCondition(InventoryQueue& inventory) = 0;
-    virtual BenefitPoints processMaterials(std::vector<Material>& materials) = 0;
+    virtual std::vector<std::pair<Material, size_t>> requiredMaterials();
+    virtual bool continueCondition(InventoryQueue& inventory);
+    virtual BenefitPoints processMaterials(std::vector<Material>& materials);
     virtual ~Producer() {}
 };
 
 class Chef: public Producer {
-    std::vector<std::pair<Material, size_t>> neededMaterials {
-        std::pair<Material, size_t>(Wheat, 2),
-        std::pair<Material, size_t>(Coal, 1)
-    };
     public:
     Chef(InventoryQueue& providedQueue,
             BenefitPointRepository& repository)
-            : Producer(providedQueue,repository) {}
-    virtual std::vector<std::pair<Material, size_t>> requiredMaterials();
-    virtual bool continueCondition(InventoryQueue& inventory);
-    virtual BenefitPoints processMaterials(std::vector<Material>& materials);
+            : Producer(providedQueue,repository,
+                    {
+                        std::pair<Material, size_t>(Wheat, 2),
+                        std::pair<Material, size_t>(Coal, 1)
+                    },
+                    ChefPoint) {}
 };
 
 class Carpenter: public Producer {
-    std::vector<std::pair<Material, size_t>> neededMaterials {
-        std::pair<Material, size_t>(Wood, 3),
-        std::pair<Material, size_t>(Iron, 1)
-    };
     public:
     Carpenter(InventoryQueue& providedQueue,
             BenefitPointRepository& repository)
-            : Producer(providedQueue,repository) {}
-    virtual std::vector<std::pair<Material, size_t>> requiredMaterials();
-    virtual bool continueCondition(InventoryQueue& inventory);
-    virtual BenefitPoints processMaterials(std::vector<Material>& materials);
+            : Producer(providedQueue,repository,
+            {
+                std::pair<Material, size_t>(Wood, 3),
+                std::pair<Material, size_t>(Iron, 1)
+            },
+            CarpenterPoint) {}
 };
 
 class Weaponsmith: public Producer {
-    std::vector<std::pair<Material, size_t>> neededMaterials {
-        std::pair<Material, size_t>(Coal, 2),
-        std::pair<Material, size_t>(Iron, 2)
-    };
     public:
     Weaponsmith(InventoryQueue& providedQueue,
             BenefitPointRepository& repository)
-            : Producer(providedQueue,repository) {}
-    virtual std::vector<std::pair<Material, size_t>> requiredMaterials();
-    virtual bool continueCondition(InventoryQueue& inventory);
-    virtual BenefitPoints processMaterials(std::vector<Material>& materials);
+            : Producer(providedQueue,repository,
+            {
+                std::pair<Material, size_t>(Coal, 2),
+                std::pair<Material, size_t>(Iron, 2)
+            },
+            WeaponsmithPoints) {}
 };
 
 
