@@ -8,7 +8,6 @@
 #include <utility>
 #include <condition_variable>
 #include "./Material.h"
-#include "./Observer.h"
 #include "./BenefitPointRepository.h"
 #include "./Producer.h"
 #include "./Maybe.h"
@@ -30,7 +29,7 @@ class InventoryQueue {
     }
 
     void push(const Material material);
-    Maybe<BenefitPoints> pop(Producer& worker);
+    Maybe<BenefitPoints> pop(Producer& const worker);
     void shutdown();
 
     private:

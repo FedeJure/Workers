@@ -1,14 +1,6 @@
 #include "./InventoryQueue.h"
 
-
-void InventoryQueue::push(const Material material) {
-    std::unique_lock<std::mutex> lock(notifierMutex);
-    container[material].push_back(material);
-    sleepCondition.notify_all();
-    notified = true;
-}
-
-Maybe<BenefitPoints> InventoryQueue::pop(Producer& worker) {
+Maybe<BenefitPoints> InventoryQueue::pop(Producer& const worker) {
     std::unique_lock<std::mutex> lock(notifierMutex);
     while(worker.continueCondition(*this)) {
         if (!working) {
@@ -27,6 +19,13 @@ Maybe<BenefitPoints> InventoryQueue::pop(Producer& worker) {
     return toReturn;
 }
 
+
+void InventoryQueue::push(const Material material) {
+    std::unique_lock<std::mutex> lock(notifierMutex);
+    container[material].push_back(material);
+    sleepCondition.notify_all();
+    notified = true;
+}
 void InventoryQueue::shutdown() {
     std::unique_lock<std::mutex> lock(notifierMutex);
     working = false;

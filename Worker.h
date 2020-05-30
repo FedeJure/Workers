@@ -1,9 +1,7 @@
 #ifndef WORKER_H_
 #define WORKER_H_
 #include <thread>
-#include "./InventoryQueue.h"
 #include "./Maybe.h"
-#include "./Material.h"
 
 class Worker {
     protected:

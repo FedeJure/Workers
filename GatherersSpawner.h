@@ -4,7 +4,6 @@
 #include "./Gatherer.h"
 #include "./Producer.h"
 #include "./InventoryQueue.h"
-#include "./ProducerQueue.h"
 #include "./BenefitPointRepository.h"
 #include <vector>
 
@@ -14,7 +13,6 @@ class GatherersSpawner {
     MaterialQueue* MinerQueue;
     InventoryQueue* producersQueue;
     BenefitPointRepository* benefitPoints;
-    InventoryQueue* inventory;
     std::vector<Worker*> workers;
 
     public:
@@ -27,7 +25,6 @@ class GatherersSpawner {
                 this->FarmerQueue = &FarmerQueue;
                 this->WoodcutterQueue = &WoodcutterQueue;
                 this->MinerQueue = &MinerQueue;
-                this->inventory = &inventory;
                 this->benefitPoints = &benefitPoints;
                 this->producersQueue = &producersQueue;
             }

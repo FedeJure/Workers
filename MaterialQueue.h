@@ -1,5 +1,6 @@
 #ifndef MATERIAL_QUEUE_H_
 #define MATERIAL_QUEUE_H_
+#include <queue>
 #include "./Material.h"
 
 class MaterialQueue {

@@ -13,16 +13,16 @@ void GatherersSpawner::spawnWorkers(int farmers, int woodcutter, int miner,
 void GatherersSpawner::spawnWorker(int count, MaterialQueue& queue) {
     for (int i = 0; i < count; i++)
     {
-        Gatherer* newWorker = new Gatherer(queue, *this->inventory);
-        workers.push_back(newWorker);
+        Gatherer* newWorker = new Gatherer(queue, *this->producersQueue);
+        workers.push_back(std::move(newWorker));
     }
 }
 
 void GatherersSpawner::spawnWorker(int count, InventoryQueue& queue) {
     for (int i = 0; i < count; i++)
     {
-        Producer* newWorker = new Producer(queue, *this->benefitPoints);
-        workers.push_back(newWorker);
+        Producer* newWorker = new Chef(queue, *this->benefitPoints);
+        workers.push_back(std::move(newWorker));
     }
 }
 

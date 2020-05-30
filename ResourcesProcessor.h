@@ -1,7 +1,9 @@
 #include <fstream>
 #include <map>
 #include <iostream>
+#include <thread>
 #include "./Material.h"
+#include "./MaterialQueue.h"
 class ResourcesProcessor {
     std::string fileName = "mapa.txt";
     std::ifstream file;

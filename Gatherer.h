@@ -3,7 +3,6 @@
 #include "./Worker.h"
 #include "./MaterialQueue.h"
 #include "./InventoryQueue.h"
-#include "./Material.h"
 
 class Gatherer: public Worker {
     InventoryQueue* inventory;
