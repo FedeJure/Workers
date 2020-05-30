@@ -27,6 +27,7 @@ int main() {
         processor.waitUntilFinish();
         spawner.waitUntilFinish();
 
+        inventory.printRemainingMaterials();
         benefitPoints.printPoints();
     }
     catch(const std::exception& e)

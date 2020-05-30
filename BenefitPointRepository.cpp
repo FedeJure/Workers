@@ -11,5 +11,5 @@ void BenefitPointRepository::add(BenefitPoints value) {
 }
 
 void BenefitPointRepository::printPoints() {
-    std::cout << "puntos totales: "<< points<<"\n";
+    std::cout << "Puntos de Beneficio acumulados: "<< points<<"\n";
 }

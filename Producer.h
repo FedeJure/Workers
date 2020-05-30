@@ -36,8 +36,8 @@ class Chef: public Producer {
 
 class Carpenter: public Producer {
     std::vector<std::pair<Material, size_t>> neededMaterials {
-        std::pair<Material, size_t>(Wheat, 2),
-        std::pair<Material, size_t>(Coal, 1)
+        std::pair<Material, size_t>(Wood, 3),
+        std::pair<Material, size_t>(Iron, 1)
     };
     public:
     Carpenter(InventoryQueue& providedQueue,
@@ -50,8 +50,8 @@ class Carpenter: public Producer {
 
 class Weaponsmith: public Producer {
     std::vector<std::pair<Material, size_t>> neededMaterials {
-        std::pair<Material, size_t>(Wheat, 2),
-        std::pair<Material, size_t>(Coal, 1)
+        std::pair<Material, size_t>(Coal, 2),
+        std::pair<Material, size_t>(Iron, 2)
     };
     public:
     Weaponsmith(InventoryQueue& providedQueue,

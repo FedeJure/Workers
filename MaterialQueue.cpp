@@ -2,14 +2,14 @@
 
 void MaterialQueue::push(const Material elem) {
     std::unique_lock<std::mutex> lock(notifierMutex);
-    queue.push(elem);
+    materials.push_back(elem);
     sleepCondition.notify_all();
     notified = true;
 }
 
 Maybe<Material> MaterialQueue::pop(Gatherer& worker) {
     std::unique_lock<std::mutex> lock(notifierMutex);
-    while(this->queue.empty()) {
+    while(this->materials.empty()) {
         if (!working) {
             return Maybe<Material>::nothing();
         }
@@ -18,8 +18,8 @@ Maybe<Material> MaterialQueue::pop(Gatherer& worker) {
         }
     }
     notified = false;
-    Material aux = this->queue.back();
-    this->queue.pop();
+    Material aux = this->materials.back();
+    this->materials.pop_back();
     Maybe<Material> toReturn(aux);
     return toReturn;
 }

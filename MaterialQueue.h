@@ -1,7 +1,8 @@
 #ifndef MATERIAL_QUEUE_H_
 #define MATERIAL_QUEUE_H_
-#include <queue>
+#include <vector>
 #include <mutex>
+#include <algorithm>
 #include <condition_variable>
 #include "./Maybe.h"
 #include "./Gatherer.h"
@@ -10,7 +11,7 @@
 class Gatherer;
 class MaterialQueue {
     private:
-    std::queue<Material> queue;
+    std::vector<Material> materials;
     std::mutex notifierMutex;
     std::condition_variable sleepCondition;
     bool working = true;

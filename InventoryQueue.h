@@ -33,7 +33,7 @@ class InventoryQueue {
     virtual Maybe<BenefitPoints> pop(Producer& worker);
     void shutdown();
     bool hasEnoughMaterials(std::vector<std::pair<Material, size_t>>& materials);
-
+    void printRemainingMaterials();
     private:
     void extractMaterialsToProcess(
                 std::vector<std::pair<Material, size_t>>& materials,
