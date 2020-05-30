@@ -14,27 +14,29 @@
 class Producer;
 class InventoryQueue {
     std::mutex notifierMutex;
+    std::mutex inventaryMutex;
     std::condition_variable sleepCondition;
-    std::map<Material, std::vector<Material>> container;
+    std::map<Material, std::vector<Material>> container = {
+        {Wheat, std::vector<Material>()},
+        {Wood, std::vector<Material>()},
+        {Iron, std::vector<Material>()},
+        {Coal, std::vector<Material>()}
+    };
     bool working = true;
     bool notified = false;
 
 
     public:
-    InventoryQueue() {
-        container[Wheat] = std::vector<Material>();
-        container[Wood] = std::vector<Material>();
-        container[Iron] = std::vector<Material>();
-        container[Coal] = std::vector<Material>();
-    }
+    InventoryQueue() {}
 
     void push(const Material material);
     virtual Maybe<BenefitPoints> pop(Producer& worker);
     void shutdown();
+    bool hasEnoughMaterials(std::vector<std::pair<Material, size_t>>& materials);
 
     private:
     void extractMaterialsToProcess(
-                std::vector<std::pair<Material, int>>& materials,
+                std::vector<std::pair<Material, size_t>>& materials,
                 std::vector<Material>& toProcess);
 
 };

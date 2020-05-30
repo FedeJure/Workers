@@ -1,34 +1,38 @@
 #include "./Main.h"
 
 int main() {
-    // recursos
-    InventoryQueue inventory;
-    BenefitPointRepository benefitPoints;
+    try
+    {
+        InventoryQueue inventory;
+        BenefitPointRepository benefitPoints;
 
-    // colas bloqueantes
-    MaterialQueue farmerQueue;
-    MaterialQueue woodcutterQueue;
-    MaterialQueue minerQueue;
 
-    // empieza procesamiento, se empiezan a llenar las colas
-    ResourcesProcessor processor(farmerQueue,
+        MaterialQueue farmerQueue;
+        MaterialQueue woodcutterQueue;
+        MaterialQueue minerQueue;
+
+        ResourcesProcessor processor(farmerQueue,
+                                    woodcutterQueue,
+                                    minerQueue);
+
+        GatherersSpawner spawner(inventory,
+                                farmerQueue,
                                 woodcutterQueue,
-                                minerQueue);
+                                minerQueue,
+                                benefitPoints,
+                                inventory);
+        
+        
+        WorkersFactory factory(spawner);
+        processor.waitUntilFinish();
+        spawner.waitUntilFinish();
 
-    GatherersSpawner spawner(inventory,
-                            farmerQueue,
-                            woodcutterQueue,
-                            minerQueue,
-                            benefitPoints,
-                            inventory);
+        benefitPoints.printPoints();
+    }
+    catch(const std::exception& e)
+    {
+        std::cerr << e.what() << '\n';
+    }
     
-    
-
-    // los trabajadores empiezan a consumir
-    WorkersFactory factory(spawner);
-    spawner.waitUntilFinish();
-    processor.waitUntilFinish();
-
-
     return 0;
 }

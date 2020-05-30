@@ -1,7 +1,6 @@
 #include "./Producer.h"
 
 void Producer::work() {
-    std::cout << "Working!! Producer\n";
     fflush(stdout);
     while(1) {
         Maybe<BenefitPoints> value = this->inventory->pop(*this);
@@ -16,12 +15,12 @@ void Producer::work() {
     fflush(stdout);
 }
 
-std::vector<std::pair<Material, int>> Chef::requiredMaterials() {
-    std::vector<std::pair<Material, int>> required;
-    return required;
+std::vector<std::pair<Material, size_t>> Chef::requiredMaterials() {
+    return neededMaterials;
 }
-bool Chef::continueCondition(const InventoryQueue& inventory) {
-    return true;
+bool Chef::continueCondition(InventoryQueue& inventory) {
+    bool condition = inventory.hasEnoughMaterials(neededMaterials);
+    return condition;
 }
 BenefitPoints Chef::processMaterials(std::vector<Material>& materials) {
     return ChefPoint;

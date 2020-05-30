@@ -1,5 +1,4 @@
 #include "./BenefitPointRepository.h"
-#include <iostream>
 
 int BenefitPointRepository::get() {
     std::unique_lock<std::mutex> lock(m);
@@ -9,4 +8,8 @@ int BenefitPointRepository::get() {
 void BenefitPointRepository::add(BenefitPoints value) {
     std::unique_lock<std::mutex> lock(m);
     points += value;
+}
+
+void BenefitPointRepository::printPoints() {
+    std::cout << "puntos totales: "<< points<<"\n";
 }

@@ -1,5 +1,6 @@
 #ifndef MAIN_H_
 #define MAIN_H_
+#include <exception>
 #include "./InventoryQueue.h"
 #include "./MaterialQueue.h"
 #include "./GatherersSpawner.h"

@@ -14,19 +14,23 @@ class Producer: public Worker {
         this->inventory = &providedQueue;
     }
     virtual void work();
-    virtual std::vector<std::pair<Material, int>> requiredMaterials() = 0;
-    virtual bool continueCondition(const InventoryQueue& inventory) = 0;
+    virtual std::vector<std::pair<Material, size_t>> requiredMaterials() = 0;
+    virtual bool continueCondition(InventoryQueue& inventory) = 0;
     virtual BenefitPoints processMaterials(std::vector<Material>& materials) = 0;
     virtual ~Producer() {}
 };
 
 class Chef: public Producer {
+    std::vector<std::pair<Material, size_t>> neededMaterials {
+        std::pair<Material, size_t>(Wheat, 2),
+        std::pair<Material, size_t>(Coal, 1)
+    };
     public:
     Chef(InventoryQueue& providedQueue,
             BenefitPointRepository& repository)
             : Producer(providedQueue,repository) {}
-    virtual std::vector<std::pair<Material, int>> requiredMaterials();
-    virtual bool continueCondition(const InventoryQueue& inventory);
+    virtual std::vector<std::pair<Material, size_t>> requiredMaterials();
+    virtual bool continueCondition(InventoryQueue& inventory);
     virtual BenefitPoints processMaterials(std::vector<Material>& materials);
 };
 

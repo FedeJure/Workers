@@ -14,7 +14,7 @@ void GatherersSpawner::spawnWorker(int count, MaterialQueue& queue) {
     for (int i = 0; i < count; i++)
     {
         Gatherer* newWorker = new Gatherer(queue, *this->producersQueue);
-        workers.push_back(std::move(newWorker));
+        gatherers.push_back(std::move(newWorker));
     }
 }
 
@@ -22,19 +22,27 @@ void GatherersSpawner::spawnWorker(int count, InventoryQueue& queue) {
     for (int i = 0; i < count; i++)
     {
         Producer* newWorker = new Chef(queue, *this->benefitPoints);
-        workers.push_back(std::move(newWorker));
+        producers.push_back(std::move(newWorker));
     }
 }
 
 GatherersSpawner::~GatherersSpawner() {
-    for (Worker* w : workers) {
-        delete w;
-    }   
+    for (Gatherer* g : gatherers) {
+        delete g;
+    }
+    for (Producer* p : producers) {
+        delete p;
+    }
 }
 
 void GatherersSpawner::waitUntilFinish() {
-    for (Worker* w : workers) {
-        w->waitUntilTerminate();
+    for (Worker* g : gatherers) {
+        g->waitUntilTerminate();
+    }
+    producersQueue->shutdown();
+
+    for (Producer* p : producers) {
+        p->waitUntilTerminate();
     }
 
     

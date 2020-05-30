@@ -2,6 +2,7 @@
 #define BENEFIT_POINT_REPOSITORY
 
 #include <mutex>
+#include <iostream>
 
 enum BenefitPoints {
     ChefPoint = 5,
@@ -13,9 +14,10 @@ class BenefitPointRepository {
     std::mutex m;
     
     public:
-    BenefitPointRepository() {}
+    BenefitPointRepository() : points(0) {}
     void add(BenefitPoints value);
     int get();
+    void printPoints();
 };
 
 #endif

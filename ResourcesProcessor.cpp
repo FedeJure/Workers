@@ -21,7 +21,6 @@ void ResourcesProcessor::process() {
             }
         }
     }
-    std::cout<<"\nFinish Process!!!\n";
     FarmerQueue->shutdown();
     MinerQueue->shutdown();
     WoodcutterQueue->shutdown();
