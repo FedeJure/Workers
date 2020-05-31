@@ -8,7 +8,6 @@
 #include "./MaterialQueue.h"
 class ResourcesProcessor {
     std::ifstream file;
-    std::thread thread;
     MaterialQueue *FarmerQueue;
     MaterialQueue *WoodcutterQueue;
     MaterialQueue *MinerQueue;
@@ -21,13 +20,13 @@ class ResourcesProcessor {
         MaterialQueue* WoodcutterQueue,
         MaterialQueue* MinerQueue,
         std::string& fileName) 
-        : file(fileName), thread(&ResourcesProcessor::process, this) {
+        : file(fileName) {
         this->FarmerQueue = FarmerQueue;
         this->WoodcutterQueue = WoodcutterQueue;
         this->MinerQueue = MinerQueue;
+        process();
     }
 
-    void waitUntilFinish();
 
     ~ResourcesProcessor() {
         file.close();

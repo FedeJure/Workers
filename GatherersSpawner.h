@@ -22,7 +22,7 @@ class GatherersSpawner {
             MaterialQueue* WoodcutterQueue,
             MaterialQueue* MinerQueue,
             BenefitPointRepository* benefitPoints,
-            InventoryQueue* producersQueue){
+            InventoryQueue* producersQueue) {
                 this->FarmerQueue = FarmerQueue;
                 this->WoodcutterQueue = WoodcutterQueue;
                 this->MinerQueue = MinerQueue;

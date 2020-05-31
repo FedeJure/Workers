@@ -26,7 +26,3 @@ void ResourcesProcessor::process() {
     WoodcutterQueue->shutdown();
     file.close();
 }
-
-void ResourcesProcessor::waitUntilFinish() {
-    thread.join();
-}

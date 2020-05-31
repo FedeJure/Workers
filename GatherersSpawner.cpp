@@ -29,7 +29,7 @@ GatherersSpawner::~GatherersSpawner() {
 }
 
 void GatherersSpawner::waitUntilFinish() {
-    for (Worker* g : gatherers) {
+    for (Gatherer* g : gatherers) {
         g->waitUntilTerminate();
     }
     producersQueue->shutdown();

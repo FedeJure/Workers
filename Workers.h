@@ -13,26 +13,24 @@ class Workers {
     MaterialQueue farmerQueue;
     MaterialQueue woodcutterQueue;
     MaterialQueue minerQueue;
-    ResourcesProcessor resourcesProcessor;
     GatherersSpawner gatherersSpawner;
+    ResourcesProcessor resourcesProcessor;
     WorkersFactory workersFactory;
 
     public:
     Workers(std::string& mapFileName, std::string& workersFileName) :
-        resourcesProcessor(&farmerQueue,
-                        &woodcutterQueue,
-                        &minerQueue,
-                        mapFileName),
         gatherersSpawner(&farmerQueue,
                         &woodcutterQueue,
                         &minerQueue,
                         &benefitRepository,
                         &inventoryQueue),
-        workersFactory(&gatherersSpawner, workersFileName) {
-    }
+        resourcesProcessor(&farmerQueue,
+                        &woodcutterQueue,
+                        &minerQueue,
+                        mapFileName),
+        workersFactory(&gatherersSpawner, workersFileName) {}
 
     ~Workers() {
-        resourcesProcessor.waitUntilFinish();
         gatherersSpawner.waitUntilFinish();
 
         inventoryQueue.printRemainingMaterials();
