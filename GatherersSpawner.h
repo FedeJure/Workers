@@ -18,8 +18,7 @@ class GatherersSpawner {
     std::vector<Producer*> producers;
 
     public:
-    GatherersSpawner(InventoryQueue* inventory,
-            MaterialQueue* FarmerQueue,
+    GatherersSpawner(MaterialQueue* FarmerQueue,
             MaterialQueue* WoodcutterQueue,
             MaterialQueue* MinerQueue,
             BenefitPointRepository* benefitPoints,

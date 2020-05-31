@@ -2,11 +2,6 @@
 #define MAIN_H_
 #include <exception>
 #include <string>
-#include "./InventoryQueue.h"
-#include "./MaterialQueue.h"
-#include "./GatherersSpawner.h"
-#include "./ResourcesProcessor.h"
-#include "./WorkersFactory.h"
 
 void parseArguments(int argc, char *argv[],
     std::string& workersFile, std::string& map);

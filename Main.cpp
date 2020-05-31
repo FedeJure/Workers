@@ -1,5 +1,6 @@
 #include <string>
 #include "./Main.h"
+#include "./Workers.h"
 
 int main(int argc, char *argv[]) {
     try
@@ -8,36 +9,7 @@ int main(int argc, char *argv[]) {
         std::string workersFileName;
         parseArguments(argc, argv, workersFileName, mapFileName);
         
-        InventoryQueue inventory;
-        BenefitPointRepository benefitPoints;
-
-
-        MaterialQueue farmerQueue;
-        MaterialQueue woodcutterQueue;
-        MaterialQueue minerQueue;
-
-        ResourcesProcessor processor(&farmerQueue,
-                            &woodcutterQueue,
-                            &minerQueue,
-                            mapFileName);
-
-        GatherersSpawner spawner(&inventory,
-                                &farmerQueue,
-                                &woodcutterQueue,
-                                &minerQueue,
-                                &benefitPoints,
-                                &inventory);
-        
-        
-        WorkersFactory factory(&spawner, workersFileName);
-
-
-
-        processor.waitUntilFinish();
-        spawner.waitUntilFinish();
-
-        inventory.printRemainingMaterials();
-        benefitPoints.printPoints();
+        Workers workers(mapFileName, workersFileName);
     }
     catch(const std::exception& e)
     {
