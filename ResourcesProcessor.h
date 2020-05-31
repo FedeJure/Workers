@@ -7,7 +7,6 @@
 #include "./Material.h"
 #include "./MaterialQueue.h"
 class ResourcesProcessor {
-    std::string fileName = "mapa.txt";
     std::ifstream file;
     std::thread thread;
     MaterialQueue *FarmerQueue;
@@ -20,7 +19,8 @@ class ResourcesProcessor {
     ResourcesProcessor(
         MaterialQueue& FarmerQueue,
         MaterialQueue& WoodcutterQueue,
-        MaterialQueue& MinerQueue) 
+        MaterialQueue& MinerQueue,
+        std::string& fileName) 
         : file(fileName), thread(&ResourcesProcessor::process, this) {
         this->FarmerQueue = &FarmerQueue;
         this->WoodcutterQueue = &WoodcutterQueue;

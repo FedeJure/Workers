@@ -22,8 +22,9 @@ class WorkersFactory {
     void createWorkersFromFile();
 
     public:
-    explicit WorkersFactory(GatherersSpawner& spawner) 
-    : file("trabajadores.cfg") {
+    explicit WorkersFactory(GatherersSpawner& spawner,
+                            std::string& fileName) 
+    : file(fileName) {
         this->spawner = &spawner;
         for (std::string key : keys) {
             spawnMap[key] = 0;

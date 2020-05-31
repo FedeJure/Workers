@@ -1,8 +1,13 @@
+#include <string>
 #include "./Main.h"
 
-int main() {
+int main(int argc, char *argv[]) {
     try
     {
+        std::string mapFileName;
+        std::string workersFileName;
+        parseArguments(argc, argv, workersFileName, mapFileName);
+        
         InventoryQueue inventory;
         BenefitPointRepository benefitPoints;
 
@@ -13,7 +18,8 @@ int main() {
 
         ResourcesProcessor processor(farmerQueue,
                                     woodcutterQueue,
-                                    minerQueue);
+                                    minerQueue,
+                                    mapFileName);
 
         GatherersSpawner spawner(inventory,
                                 farmerQueue,
@@ -23,7 +29,8 @@ int main() {
                                 inventory);
         
         
-        WorkersFactory factory(spawner);
+        WorkersFactory factory(spawner, workersFileName);
+
         processor.waitUntilFinish();
         spawner.waitUntilFinish();
 
@@ -34,6 +41,17 @@ int main() {
     {
         std::cerr << e.what() << '\n';
     }
-    
+    catch(...) {
+        std::cerr << "Unknown error.\n";
+    }
     return 0;
+}
+
+void parseArguments(int argc, char *argv[],
+    std::string& workersFile, std::string& map) {
+    if (argc != 3) throw InvalidArgumentsError("Invalid args was passed.");
+    std::string aux(argv[1]);
+    workersFile = aux;
+    std::string aux1(argv[2]);
+    map = aux1;
 }
