@@ -44,8 +44,7 @@ void spawnProducer(int count, InventoryQueue& source,
                     BenefitPointRepository& deposit,
                     std::vector<Producer*>& contenedor) {
     for (int i = 0; i < count; i++) {
-        T* newWorker = new T(source, deposit);
-        contenedor.push_back(newWorker);
+        contenedor.push_back(new T(source, deposit));
     }
 }
 

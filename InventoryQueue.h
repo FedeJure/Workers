@@ -16,12 +16,7 @@ class InventoryQueue {
     std::mutex notifierMutex;
     std::mutex inventaryMutex;
     std::condition_variable sleepCondition;
-    std::map<Material, std::vector<Material>> container = {
-        {Wheat, std::vector<Material>()},
-        {Wood, std::vector<Material>()},
-        {Iron, std::vector<Material>()},
-        {Coal, std::vector<Material>()}
-    };
+    std::map<Material, std::vector<Material>> container;
     bool working = true;
     bool notified = false;
 
@@ -30,7 +25,12 @@ class InventoryQueue {
             std::vector<Material>& toProcess);
 
     public:
-    InventoryQueue() {}
+    InventoryQueue() {
+        container[Wheat];
+        container[Wood];
+        container[Iron];
+        container[Coal];
+    }
 
     void push(const Material material);
     virtual Maybe<BenefitPoints> pop(Producer& worker);
