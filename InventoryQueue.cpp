@@ -71,6 +71,6 @@ void InventoryQueue::printRemainingMaterials() {
     std::cout<<"  - Trigo: "<<container[Wheat].size()<<"\n";
     std::cout<<"  - Madera: "<<container[Wood].size()<<"\n";
     std::cout<<"  - Carbon: "<<container[Coal].size()<<"\n";
-    std::cout<<"  - Hierro: "<<container[Iron].size()<<"\n";
+    std::cout<<"  - Hierro: "<<container[Iron].size()<<"\n\n";
     fflush(stdout);
 }
