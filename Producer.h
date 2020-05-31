@@ -25,7 +25,7 @@ class Producer: public Worker {
     virtual std::vector<std::pair<Material, size_t>> requiredMaterials();
     virtual bool continueCondition(InventoryQueue& inventory);
     virtual BenefitPoints processMaterials(std::vector<Material>& materials);
-    virtual ~Producer() {}
+    ~Producer() {}
 };
 
 class Chef: public Producer {

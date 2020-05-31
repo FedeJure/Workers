@@ -16,7 +16,7 @@ void GatherersSpawner::spawnWorker(int count, MaterialQueue& queue) {
     for (int i = 0; i < count; i++)
     {
         Gatherer* newWorker = new Gatherer(queue, *this->producersQueue);
-        gatherers.push_back(std::move(newWorker));
+        gatherers.push_back(newWorker);
     }
 }
 

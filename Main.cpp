@@ -16,20 +16,22 @@ int main(int argc, char *argv[]) {
         MaterialQueue woodcutterQueue;
         MaterialQueue minerQueue;
 
-        ResourcesProcessor processor(farmerQueue,
-                                    woodcutterQueue,
-                                    minerQueue,
-                                    mapFileName);
+        ResourcesProcessor processor(&farmerQueue,
+                            &woodcutterQueue,
+                            &minerQueue,
+                            mapFileName);
 
-        GatherersSpawner spawner(inventory,
-                                farmerQueue,
-                                woodcutterQueue,
-                                minerQueue,
-                                benefitPoints,
-                                inventory);
+        GatherersSpawner spawner(&inventory,
+                                &farmerQueue,
+                                &woodcutterQueue,
+                                &minerQueue,
+                                &benefitPoints,
+                                &inventory);
         
         
-        WorkersFactory factory(spawner, workersFileName);
+        WorkersFactory factory(&spawner, workersFileName);
+
+
 
         processor.waitUntilFinish();
         spawner.waitUntilFinish();

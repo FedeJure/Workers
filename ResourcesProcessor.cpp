@@ -23,7 +23,8 @@ void ResourcesProcessor::process() {
     }
     FarmerQueue->shutdown();
     MinerQueue->shutdown();
-    WoodcutterQueue->shutdown(); 
+    WoodcutterQueue->shutdown();
+    file.close();
 }
 
 void ResourcesProcessor::waitUntilFinish() {

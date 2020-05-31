@@ -13,4 +13,5 @@ void WorkersFactory::createWorkersFromFile() {
     spawner->spawnWorkers(spawnMap[keys[0]], spawnMap[keys[1]],
                             spawnMap[keys[2]], spawnMap[keys[3]],
                             spawnMap[keys[4]], spawnMap[keys[5]]);
+    file.close();
 }

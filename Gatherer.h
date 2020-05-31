@@ -13,7 +13,8 @@ class Gatherer: public Worker {
         this->inventory = &inventory;
         this->queue = &providedQueue;
     }
-    ~Gatherer() {}
+    ~Gatherer() {
+    }
     virtual void work();
 };
 

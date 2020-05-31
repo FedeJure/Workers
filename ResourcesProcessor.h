@@ -17,14 +17,14 @@ class ResourcesProcessor {
 
     public:
     ResourcesProcessor(
-        MaterialQueue& FarmerQueue,
-        MaterialQueue& WoodcutterQueue,
-        MaterialQueue& MinerQueue,
+        MaterialQueue* FarmerQueue,
+        MaterialQueue* WoodcutterQueue,
+        MaterialQueue* MinerQueue,
         std::string& fileName) 
         : file(fileName), thread(&ResourcesProcessor::process, this) {
-        this->FarmerQueue = &FarmerQueue;
-        this->WoodcutterQueue = &WoodcutterQueue;
-        this->MinerQueue = &MinerQueue;
+        this->FarmerQueue = FarmerQueue;
+        this->WoodcutterQueue = WoodcutterQueue;
+        this->MinerQueue = MinerQueue;
     }
 
     void waitUntilFinish();

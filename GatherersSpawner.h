@@ -18,17 +18,17 @@ class GatherersSpawner {
     std::vector<Producer*> producers;
 
     public:
-    GatherersSpawner(InventoryQueue& inventory,
-            MaterialQueue& FarmerQueue,
-            MaterialQueue& WoodcutterQueue,
-            MaterialQueue& MinerQueue,
-            BenefitPointRepository& benefitPoints,
-            InventoryQueue& producersQueue){
-                this->FarmerQueue = &FarmerQueue;
-                this->WoodcutterQueue = &WoodcutterQueue;
-                this->MinerQueue = &MinerQueue;
-                this->benefitPoints = &benefitPoints;
-                this->producersQueue = &producersQueue;
+    GatherersSpawner(InventoryQueue* inventory,
+            MaterialQueue* FarmerQueue,
+            MaterialQueue* WoodcutterQueue,
+            MaterialQueue* MinerQueue,
+            BenefitPointRepository* benefitPoints,
+            InventoryQueue* producersQueue){
+                this->FarmerQueue = FarmerQueue;
+                this->WoodcutterQueue = WoodcutterQueue;
+                this->MinerQueue = MinerQueue;
+                this->benefitPoints = benefitPoints;
+                this->producersQueue = producersQueue;
             }
     ~GatherersSpawner();
 
@@ -46,7 +46,7 @@ void spawnProducer(int count, InventoryQueue& source,
                     std::vector<Producer*>& contenedor) {
     for (int i = 0; i < count; i++) {
         T* newWorker = new T(source, deposit);
-        contenedor.push_back(std::move(newWorker));
+        contenedor.push_back(newWorker);
     }
 }
 

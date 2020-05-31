@@ -22,10 +22,10 @@ class WorkersFactory {
     void createWorkersFromFile();
 
     public:
-    explicit WorkersFactory(GatherersSpawner& spawner,
+    explicit WorkersFactory(GatherersSpawner* spawner,
                             std::string& fileName) 
     : file(fileName) {
-        this->spawner = &spawner;
+        this->spawner = spawner;
         for (std::string key : keys) {
             spawnMap[key] = 0;
         }
