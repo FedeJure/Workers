@@ -1,11 +1,12 @@
 #ifndef GATHERERS_SPAWNER_H_
 #define GATHERERS_SPAWNER_H_
+#include <utility>
+#include <vector>
 #include "./MaterialQueue.h"
 #include "./Gatherer.h"
 #include "./Producer.h"
 #include "./InventoryQueue.h"
 #include "./BenefitPointRepository.h"
-#include <vector>
 
 class GatherersSpawner {
     MaterialQueue* FarmerQueue;
