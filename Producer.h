@@ -8,7 +8,7 @@
 #include "./Material.h"
 #include "./BenefitPointRepository.h"
 class InventoryQueue;
-class Producer: public Worker {
+class Producer: public Worker<Material, BenefitPoints> {
     BenefitPointRepository* repository;
     InventoryQueue* inventory;
     std::vector<std::pair<Material, size_t>> neededMaterials;

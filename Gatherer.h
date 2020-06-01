@@ -4,12 +4,12 @@
 #include "./MaterialQueue.h"
 #include "./InventoryQueue.h"
 class MaterialQueue;
-class Gatherer: public Worker {
+class Gatherer: public Worker<Material, Material> {
     InventoryQueue* inventory;
     MaterialQueue* queue;
     public:
     Gatherer(MaterialQueue& providedQueue,
-            InventoryQueue& inventory) : Worker() {
+            InventoryQueue& inventory) : Worker<Material, Material>() {
         this->inventory = &inventory;
         this->queue = &providedQueue;
         start();
@@ -17,6 +17,10 @@ class Gatherer: public Worker {
     ~Gatherer() {
     }
     virtual void work();
+    virtual Material processMaterials(std::vector<Material> toProcess) {
+        return toProcess.back();
+    }
+    virtual bool continueCondition(MaterialQueue& queue);
 };
 
 #endif

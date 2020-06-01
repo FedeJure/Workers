@@ -2,6 +2,8 @@
 #include <utility>
 #include "./Producer.h"
 
+// template<>bool Worker<Material, BenefitPoints>::continueCondition(BlockingQueue<Material, BenefitPoints>& inventory);
+template<typename Material, typename BenefitPoints> class Worker;
 void Producer::work() {
     bool working = true;
     while (working) {

@@ -13,3 +13,9 @@ void Gatherer::work() {
         }
     }
 }
+
+
+
+bool Gatherer::continueCondition(MaterialQueue& queue) {
+    return queue.size() > 0;
+}
