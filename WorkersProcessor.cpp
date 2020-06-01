@@ -1,6 +1,6 @@
 #include <string>
 #include <iostream>
-#include "./WorkersFactory.h"
+#include "./WorkersProcessor.h"
 
 void WorkersFactory::createWorkersFromFile() {
     std::string line;

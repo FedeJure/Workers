@@ -5,7 +5,7 @@
 #include "./MaterialQueue.h"
 #include "./WorkerSpawner.h"
 #include "./ResourcesProcessor.h"
-#include "./WorkersFactory.h"
+#include "./WorkersProcessor.h"
 
 class Workers {
     InventoryQueue inventoryQueue;
