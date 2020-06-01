@@ -12,6 +12,7 @@ class Gatherer: public Worker {
             InventoryQueue& inventory) : Worker() {
         this->inventory = &inventory;
         this->queue = &providedQueue;
+        start();
     }
     ~Gatherer() {
     }

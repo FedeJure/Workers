@@ -6,9 +6,10 @@
 class Worker {
     protected:
     std::thread thread;
+    void start();
 
     public:
-    Worker() : thread(&Worker::work, this) {}
+    Worker() {}
     virtual void waitUntilTerminate();
     virtual void work() = 0;
     virtual ~Worker() {}

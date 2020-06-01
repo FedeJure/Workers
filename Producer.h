@@ -20,6 +20,7 @@ class Producer: public Worker {
         neededMaterials(materials), pointsOnProcess(points) {
         this->repository = &repository;
         this->inventory = &providedQueue;
+        start();
     }
     virtual void work();
     virtual std::vector<std::pair<Material, size_t>> requiredMaterials();
