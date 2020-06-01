@@ -37,23 +37,23 @@ El foco de este trabajo practico es usar procesamiento multi-threading  y el cor
 -----------------------------------
 
 ## Modelo de dominio
-Workers: Clase principal del programa cuya responsabilidad es inicializar los recursos compartidos y compartirlo con las demas clases.<br/>
+__Workers__: Clase principal del programa cuya responsabilidad es inicializar los recursos compartidos y compartirlo con las demas clases.<br/>
 
-MaterialQueue: Modela un repositorio de materiales basado en una cola bloqueante que permite obtener los materiales ni bien estén disponibles.<br/>
+__MaterialQueue__: Modela un repositorio de materiales basado en una cola bloqueante que permite obtener los materiales ni bien estén disponibles.<br/>
 
-InventoryQueue: Modela un repositorio de materiales basado en una cola bloqueante, el cual guarda materiales y devuelve puntos de beneficios. A diferencia de la de materiales, la condicion para extraer los materiales en forma de puntos de beneficios es que haya materiales suficientes que un trabajador necesita para procesar y convertirlos en puntos.<br/>
+__InventoryQueue__: Modela un repositorio de materiales basado en una cola bloqueante, el cual guarda materiales y devuelve puntos de beneficios. A diferencia de la de materiales, la condicion para extraer los materiales en forma de puntos de beneficios es que haya materiales suficientes que un trabajador necesita para procesar y convertirlos en puntos.<br/>
 
-BenefitPointRepository: Modela un repositorio de puntos de beneficio.<br/>
+__BenefitPointRepository__: Modela un repositorio de puntos de beneficio.<br/>
 
-Gatherer: Modela un recolector, el cual se encola en MaterialQueue, y ni bien hay un material lo extrae, lo procesa y lo deposita en el InventoryQueue.<br/>
+__Gatherer__: Modela un recolector, el cual se encola en MaterialQueue, y ni bien hay un material lo extrae, lo procesa y lo deposita en el InventoryQueue.<br/>
 
-Producer: Modela un productor, el cual se encola en InventoryQueue a la espera que haya suficientes materiales disponibles para extraerlos, procesarlos y generar puntos de beneficios los cuales deposita en BenefitPointRepository.<br/>
+__Producer__: Modela un productor, el cual se encola en InventoryQueue a la espera que haya suficientes materiales disponibles para extraerlos, procesarlos y generar puntos de beneficios los cuales deposita en BenefitPointRepository.<br/>
 
-WorkerSpawner: Modela una fabrica de trabajadores.<br/>
+__WorkerSpawner__: Modela una fabrica de trabajadores.<br/>
 
-ResourcesProcessor: Modela un procesador del mapa de materiales. Procesa cada uno de los materiales en el orden que estan dispuestos en el mapa y los va depositando en el contenedor correpondiente para el tipo de material.<br/>
+__ResourcesProcessor__: Modela un procesador del mapa de materiales. Procesa cada uno de los materiales en el orden que estan dispuestos en el mapa y los va depositando en el contenedor correpondiente para el tipo de material.<br/>
 
-WorkersProcessor: Modela un procesador del archivo de configuarcion de trabajadores. Se comunica con el WorkerSpawner pasandole la cantidad de cada tipo de trabajador a generar.<br/>
+__WorkersProcessor__: Modela un procesador del archivo de configuarcion de trabajadores. Se comunica con el WorkerSpawner pasandole la cantidad de cada tipo de trabajador a generar.<br/>
 
 ---------------
 ## Diagramas de clases
