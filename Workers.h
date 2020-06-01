@@ -3,7 +3,7 @@
 #include <string>
 #include "./InventoryQueue.h"
 #include "./MaterialQueue.h"
-#include "./GatherersSpawner.h"
+#include "./WorkerSpawner.h"
 #include "./ResourcesProcessor.h"
 #include "./WorkersFactory.h"
 
@@ -13,13 +13,13 @@ class Workers {
     MaterialQueue farmerQueue;
     MaterialQueue woodcutterQueue;
     MaterialQueue minerQueue;
-    GatherersSpawner gatherersSpawner;
+    WorkerSpawner workerSpawner;
     ResourcesProcessor resourcesProcessor;
     WorkersFactory workersFactory;
 
     public:
     Workers(std::string& mapFileName, std::string& workersFileName) :
-        gatherersSpawner(&farmerQueue,
+        workerSpawner(&farmerQueue,
                         &woodcutterQueue,
                         &minerQueue,
                         &benefitRepository,
@@ -28,10 +28,10 @@ class Workers {
                         &woodcutterQueue,
                         &minerQueue,
                         mapFileName),
-        workersFactory(&gatherersSpawner, workersFileName) {}
+        workersFactory(&workerSpawner, workersFileName) {}
 
     ~Workers() {
-        gatherersSpawner.waitUntilFinish();
+        workerSpawner.waitUntilFinish();
 
         inventoryQueue.printRemainingMaterials();
         benefitRepository.printPoints();

@@ -6,7 +6,7 @@
 #include <regex>
 #include <map>
 #include <vector>
-#include "./GatherersSpawner.h"
+#include "./WorkerSpawner.h"
 
 class WorkersFactory {
     std::vector<std::string> keys =
@@ -18,11 +18,11 @@ class WorkersFactory {
                             "Armeros"};
     std::ifstream file;
     std::map<std::string, int> spawnMap;
-    GatherersSpawner* spawner;
+    WorkerSpawner* spawner;
     void createWorkersFromFile();
 
     public:
-    explicit WorkersFactory(GatherersSpawner* spawner,
+    explicit WorkersFactory(WorkerSpawner* spawner,
                             std::string& fileName) 
     : file(fileName) {
         this->spawner = spawner;

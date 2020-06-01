@@ -34,11 +34,11 @@ class Chef: public Producer {
     Chef(InventoryQueue& providedQueue,
             BenefitPointRepository& repository)
             : Producer(providedQueue,repository,
-                    {
-                        std::pair<Material, size_t>(Wheat, 2),
-                        std::pair<Material, size_t>(Coal, 1)
-                    },
-                    ChefPoint) {}
+            {
+                std::pair<Material, size_t>(Wheat, 2),
+                std::pair<Material, size_t>(Coal, 1)
+            },
+            ChefPoint) {}
 };
 
 class Carpenter: public Producer {

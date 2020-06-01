@@ -8,7 +8,7 @@
 #include "./InventoryQueue.h"
 #include "./BenefitPointRepository.h"
 
-class GatherersSpawner {
+class WorkerSpawner {
     MaterialQueue* FarmerQueue;
     MaterialQueue* WoodcutterQueue;
     MaterialQueue* MinerQueue;
@@ -18,7 +18,7 @@ class GatherersSpawner {
     std::vector<Producer*> producers;
 
     public:
-    GatherersSpawner(MaterialQueue* FarmerQueue,
+    WorkerSpawner(MaterialQueue* FarmerQueue,
             MaterialQueue* WoodcutterQueue,
             MaterialQueue* MinerQueue,
             BenefitPointRepository* benefitPoints,
@@ -29,7 +29,7 @@ class GatherersSpawner {
                 this->benefitPoints = benefitPoints;
                 this->producersQueue = producersQueue;
             }
-    ~GatherersSpawner();
+    ~WorkerSpawner();
 
     void spawnWorkers(int farmers, int woodcutter, int miner,
                         int chef, int carpenter, int weaponsmith);
