@@ -37,7 +37,9 @@ En el siguiente diagrama se puede ver a grandes razgos las dependencias de los m
 
 
 <img src="images/diagrama_clases_general.png"/>
+<div style="display:flex; justify-content:center;align-content: space-between">
 <img src="images/diagrama_clases_resources_processor.png"/>
 <img src="images/diagrama_clases_workers_factory.png"/>
+</div>
 <img src="images/diagrama_clases_workers_spawner.png"/>
 ---------------
