@@ -5,14 +5,11 @@
 #include <mutex>
 #include <iostream>
 #include <vector>
-#include <utility>
 #include <condition_variable>
+#include "./BlockingQueue.h"
 #include "./Material.h"
 #include "./BenefitPointRepository.h"
-#include "./Producer.h"
-#include "./Maybe.h"
-class Producer;
-class InventoryQueue {
+class InventoryQueue : BlockingQueue {
     std::mutex notifierMutex;
     std::mutex inventaryMutex;
     std::condition_variable sleepCondition;
@@ -20,8 +17,11 @@ class InventoryQueue {
     bool working = true;
     bool notified = false;
 
-    std::vector<Material> extractMaterialsToProcess(
-            std::vector<std::pair<Material, size_t>>& materials);
+    protected:
+    virtual std::vector<Material> extractMaterialsToProcess(
+            std::vector<QueueRequestDto>& requests);
+    virtual bool hasEnoughMaterials(
+         std::vector<QueueRequestDto>& materials);
 
     public:
     InventoryQueue() {
@@ -31,12 +31,10 @@ class InventoryQueue {
         container[Coal];
     }
 
-    void push(const Material material);
+    virtual void push(const Material material);
     virtual std::vector<Material> pop(
-        std::vector<std::pair<Material, size_t>>& requiredMaterials);
-    void shutdown();
-    bool hasEnoughMaterials(
-        std::vector<std::pair<Material, size_t>>& materials);
+        std::vector<QueueRequestDto>& requiredMaterials);
+    virtual void shutdown();
     void printRemainingMaterials();
 };
 

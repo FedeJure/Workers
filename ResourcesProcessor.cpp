@@ -20,7 +20,7 @@ ResourcesProcessor::~ResourcesProcessor() {
 void ResourcesProcessor::process() {
     std::string line;
     while (getline(file, line)) {
-        for (size_t i = 0; i < line.size(); i++) {
+        for (uint32_t i = 0; i < line.size(); i++) {
             char readed = line[i];
             if (readed == 'T') {
                 FarmerQueue->push(Wheat);

@@ -1,11 +1,15 @@
 #ifndef WEAPONSMITH_H_
 #define WEAPONSMITH_H_
-#include <utility>
+#include <vector>
 #include "./Producer.h"
 #include "./InventoryQueue.h"
 #include "./BenefitPointRepository.h"
 
 class Weaponsmith: public Producer {
+    protected:
+    virtual std::vector<QueueRequestDto> requiredMaterials();
+    virtual BenefitPoints processMaterials(std::vector<Material>& materials);
+
     public:
     Weaponsmith(InventoryQueue& providedQueue,
             BenefitPointRepository& repository);

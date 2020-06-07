@@ -1,14 +1,13 @@
 #include <vector>
-#include <utility>
 #include "./InventoryQueue.h"
 
 bool InventoryQueue::hasEnoughMaterials(
-    std::vector<std::pair<Material, size_t>>& materials) {
+    std::vector<QueueRequestDto>& materials) {
     std::unique_lock<std::mutex> lock(inventaryMutex);
     bool hasEnough = true;
     
-    for (std::pair<Material, size_t> pair : materials) {
-        if (this->container[pair.first].size() < pair.second) {
+    for (QueueRequestDto requested : materials) {
+        if (this->container[requested.type].size() < requested.count) {
             hasEnough = false;
             fflush(stdout);
             break;
@@ -19,7 +18,7 @@ bool InventoryQueue::hasEnoughMaterials(
 }
 
 std::vector<Material> InventoryQueue::pop(
-    std::vector<std::pair<Material, size_t>>& requiredMaterials) {
+    std::vector<QueueRequestDto>& requiredMaterials) {
     std::unique_lock<std::mutex> lock(notifierMutex);
 
     while (!hasEnoughMaterials(requiredMaterials)) {
@@ -48,14 +47,14 @@ void InventoryQueue::shutdown() {
 }
 
 std::vector<Material> InventoryQueue::extractMaterialsToProcess(
-                std::vector<std::pair<Material, size_t>>& materials) {
+                std::vector<QueueRequestDto>& materials) {
     std::unique_lock<std::mutex> lock(inventaryMutex);
     std::vector<Material> extracted;
-    for (std::pair<Material, size_t> par : materials) {
-        while (par.second > 0) {
-            extracted.push_back(container[par.first].back());
-            container[par.first].pop_back();
-            par.second--;
+    for (QueueRequestDto requested : materials) {
+        while (requested.count > 0) {
+            extracted.push_back(container[requested.type].back());
+            container[requested.type].pop_back();
+            requested.count--;
         }
     }
     return extracted;

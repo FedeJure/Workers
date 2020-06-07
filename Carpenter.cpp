@@ -1,11 +1,17 @@
-#include <utility>
+#include <vector>
 #include "./Carpenter.h"
 
 Carpenter::Carpenter(InventoryQueue& providedQueue,
-        BenefitPointRepository& repository)
-        : Producer(providedQueue,repository,
-        {
-            std::pair<Material, size_t>(Wood, 3),
-            std::pair<Material, size_t>(Iron, 1)
-        },
-        CarpenterPoint) {}
+    BenefitPointRepository& repository)
+    : Producer(providedQueue,repository) {}
+
+std::vector<QueueRequestDto> Carpenter::requiredMaterials() {
+    std::vector<QueueRequestDto> materials;
+    materials.push_back(QueueRequestDto(Wood, 3));
+    materials.push_back(QueueRequestDto(Iron, 1));
+    return materials;
+}
+
+BenefitPoints Carpenter::processMaterials(std::vector<Material>& materials) {
+    return CarpenterPoint;
+}
