@@ -1,5 +1,7 @@
 #include "./MaterialQueue.h"
 
+MaterialQueue::MaterialQueue() {}
+
 void MaterialQueue::push(const Material elem) {
     std::unique_lock<std::mutex> lock(notifierMutex);
     materials.push_back(elem);

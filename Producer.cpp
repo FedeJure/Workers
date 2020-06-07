@@ -2,9 +2,10 @@
 #include <utility>
 #include "./Producer.h"
 
-Producer::Producer(InventoryQueue& providedQueue, BenefitPointRepository& repository,
-        std::initializer_list<std::pair<Material, size_t>> materials,
-        BenefitPoints points): 
+Producer::Producer(InventoryQueue& providedQueue,
+                BenefitPointRepository& repository,
+                std::initializer_list<std::pair<Material, size_t>> materials,
+                BenefitPoints points): 
         neededMaterials(materials), pointsOnProcess(points) {
     this->repository = &repository;
     this->inventory = &providedQueue;

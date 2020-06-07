@@ -1,3 +1,4 @@
+#include <utility>
 #include "Weaponsmith.h"
 
 Weaponsmith::Weaponsmith(InventoryQueue& providedQueue,

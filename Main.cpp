@@ -1,17 +1,15 @@
 #include <string>
-#include "./Main.h"
 #include "./Workers.h"
+#include "./ArgumentParser.h"
+#include "./DetailedException.h"
 
 int main(int argc, char *argv[]) {
     try
     {
-        std::string mapFileName;
-        std::string workersFileName;
-        parseArguments(argc, argv, workersFileName, mapFileName);
-        
-        Workers workers(mapFileName, workersFileName);
+        ArgumentParser parser(argc, argv);
+        Workers workers(parser.getMapFileName(), parser.getWorkersFileName());
     }
-    catch(const std::exception& e)
+    catch(const DetailedException& e)
     {
         std::cerr << e.what() << '\n';
     }
@@ -19,13 +17,4 @@ int main(int argc, char *argv[]) {
         std::cerr << "Unknown error.\n";
     }
     return 0;
-}
-
-void parseArguments(int argc, char *argv[],
-    std::string& workersFile, std::string& map) {
-    if (argc != 3) throw InvalidArgumentsError("Invalid args was passed.");
-    std::string aux(argv[1]);
-    workersFile = aux;
-    std::string aux1(argv[2]);
-    map = aux1;
 }

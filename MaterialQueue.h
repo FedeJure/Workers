@@ -18,7 +18,7 @@ class MaterialQueue {
     bool notified = false;
 
     public:
-    MaterialQueue(){}
+    MaterialQueue();
     void push(const Material elem);
     Maybe<Material> pop(Gatherer& worker);
     void shutdown();
