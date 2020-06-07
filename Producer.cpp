@@ -17,11 +17,13 @@ Producer::~Producer() {}
 void Producer::work() {
     bool working = true;
     while (working) {
-        Maybe<BenefitPoints> value = this->inventory->pop(*this);
-        if (value.hasValue()) {
+        std::vector<std::pair<Material, size_t>> materials = 
+            requiredMaterials();
+        std::vector<Material> value = this->inventory->pop(materials);
+        if (!value.empty()) {
             std::chrono::milliseconds work_time(60);
             std::this_thread::sleep_for(work_time);
-            this->repository->add(value.getValue());
+            this->repository->add(processMaterials(value));
         } else {
             working = false;
         }

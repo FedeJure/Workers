@@ -20,9 +20,8 @@ class InventoryQueue {
     bool working = true;
     bool notified = false;
 
-    void extractMaterialsToProcess(
-            std::vector<std::pair<Material, size_t>>& materials,
-            std::vector<Material>& toProcess);
+    std::vector<Material> extractMaterialsToProcess(
+            std::vector<std::pair<Material, size_t>>& materials);
 
     public:
     InventoryQueue() {
@@ -33,7 +32,8 @@ class InventoryQueue {
     }
 
     void push(const Material material);
-    virtual Maybe<BenefitPoints> pop(Producer& worker);
+    virtual std::vector<Material> pop(
+        std::vector<std::pair<Material, size_t>>& requiredMaterials);
     void shutdown();
     bool hasEnoughMaterials(
         std::vector<std::pair<Material, size_t>>& materials);
