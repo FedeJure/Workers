@@ -1,6 +1,22 @@
 #include <string>
 #include "./ResourcesProcessor.h"
 
+ResourcesProcessor::ResourcesProcessor(
+        MaterialQueue* FarmerQueue,
+        MaterialQueue* WoodcutterQueue,
+        MaterialQueue* MinerQueue,
+        std::string& fileName) 
+    : file(fileName) {
+    this->FarmerQueue = FarmerQueue;
+    this->WoodcutterQueue = WoodcutterQueue;
+    this->MinerQueue = MinerQueue;
+    process();
+}
+
+ResourcesProcessor::~ResourcesProcessor() {
+    file.close();
+}
+
 void ResourcesProcessor::process() {
     std::string line;
     while (getline(file, line)) {

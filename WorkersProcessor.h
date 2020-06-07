@@ -23,19 +23,8 @@ class WorkersFactory {
 
     public:
     explicit WorkersFactory(WorkerSpawner* spawner,
-                            std::string& fileName) 
-    : file(fileName) {
-        this->spawner = spawner;
-        for (std::string key : keys) {
-            spawnMap[key] = 0;
-        }
-        this->createWorkersFromFile();
-    }
-
-
-    ~WorkersFactory() {
-        file.close();
-    }
+                            std::string& fileName);
+    ~WorkersFactory();
 };
 
 #endif

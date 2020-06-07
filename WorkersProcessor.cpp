@@ -2,6 +2,20 @@
 #include <iostream>
 #include "./WorkersProcessor.h"
 
+WorkersFactory::WorkersFactory(WorkerSpawner* spawner,
+                            std::string& fileName) 
+    : file(fileName) {
+        this->spawner = spawner;
+        for (std::string key : keys) {
+            spawnMap[key] = 0;
+        }
+        this->createWorkersFromFile();
+}
+
+WorkersFactory::~WorkersFactory() {
+    file.close();
+}
+
 void WorkersFactory::createWorkersFromFile() {
     std::string line;
     while (std::getline(file, line)) {

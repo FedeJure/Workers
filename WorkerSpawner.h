@@ -22,13 +22,7 @@ class WorkerSpawner {
             MaterialQueue* WoodcutterQueue,
             MaterialQueue* MinerQueue,
             BenefitPointRepository* benefitPoints,
-            InventoryQueue* producersQueue) {
-                this->FarmerQueue = FarmerQueue;
-                this->WoodcutterQueue = WoodcutterQueue;
-                this->MinerQueue = MinerQueue;
-                this->benefitPoints = benefitPoints;
-                this->producersQueue = producersQueue;
-            }
+            InventoryQueue* producersQueue);
     ~WorkerSpawner();
 
     void spawnWorkers(int farmers, int woodcutter, int miner,
@@ -37,15 +31,15 @@ class WorkerSpawner {
 
     private:
     void spawnWorker(int count, MaterialQueue& queue);
-};
 
-template<typename T>
-void spawnProducer(int count, InventoryQueue& source,
-                    BenefitPointRepository& deposit,
-                    std::vector<Producer*>& contenedor) {
-    for (int i = 0; i < count; i++) {
-        contenedor.push_back(new T(source, deposit));
+    template<typename T>
+    void spawnProducer(int count, InventoryQueue& source,
+                        BenefitPointRepository& deposit,
+                        std::vector<Producer*>& contenedor) {
+        for (int i = 0; i < count; i++) {
+            contenedor.push_back(new T(source, deposit));
+        }
     }
-}
+};
 
 #endif

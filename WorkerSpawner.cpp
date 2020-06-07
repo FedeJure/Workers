@@ -1,4 +1,19 @@
 #include "./WorkerSpawner.h"
+#include "./Chef.h"
+#include "./Carpenter.h"
+#include "./Weaponsmith.h"
+
+WorkerSpawner::WorkerSpawner(MaterialQueue* FarmerQueue,
+            MaterialQueue* WoodcutterQueue,
+            MaterialQueue* MinerQueue,
+            BenefitPointRepository* benefitPoints,
+            InventoryQueue* producersQueue) {
+    this->FarmerQueue = FarmerQueue;
+    this->WoodcutterQueue = WoodcutterQueue;
+    this->MinerQueue = MinerQueue;
+    this->benefitPoints = benefitPoints;
+    this->producersQueue = producersQueue;
+}
 
 void WorkerSpawner::spawnWorkers(int farmers, int woodcutter, int miner,
                                     int chef, int carpenter, int weaponsmith) {

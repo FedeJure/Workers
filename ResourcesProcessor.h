@@ -19,18 +19,8 @@ class ResourcesProcessor {
         MaterialQueue* FarmerQueue,
         MaterialQueue* WoodcutterQueue,
         MaterialQueue* MinerQueue,
-        std::string& fileName) 
-        : file(fileName) {
-        this->FarmerQueue = FarmerQueue;
-        this->WoodcutterQueue = WoodcutterQueue;
-        this->MinerQueue = MinerQueue;
-        process();
-    }
-
-
-    ~ResourcesProcessor() {
-        file.close();
-    }
+        std::string& fileName);
+    ~ResourcesProcessor();
 };
 
 #endif

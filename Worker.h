@@ -9,10 +9,10 @@ class Worker {
     void start();
 
     public:
-    Worker() {}
+    Worker();
     virtual void waitUntilTerminate();
     virtual void work() = 0;
-    virtual ~Worker() {}
+    virtual ~Worker();
 };
 
 #endif
