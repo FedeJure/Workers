@@ -20,8 +20,7 @@ ResourcesProcessor::~ResourcesProcessor() {
 void ResourcesProcessor::process() {
     std::string line;
     while (getline(file, line)) {
-        for (size_t i = 0; i < line.size(); i++)
-        {
+        for (size_t i = 0; i < line.size(); i++) {
             char readed = line[i];
             if (readed == 'T') {
                 FarmerQueue->push(Wheat);
@@ -29,7 +28,7 @@ void ResourcesProcessor::process() {
             if (readed == 'M') {
                 WoodcutterQueue->push(Wood);
             }
-            if (readed == 'H'){
+            if (readed == 'H') {
                 MinerQueue->push(Iron);
             }
             if (readed == 'C') {

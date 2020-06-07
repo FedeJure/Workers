@@ -28,8 +28,7 @@ void WorkerSpawner::spawnWorkers(int farmers, int woodcutter, int miner,
 }
 
 void WorkerSpawner::spawnWorker(int count, MaterialQueue& queue) {
-    for (int i = 0; i < count; i++)
-    {
+    for (int i = 0; i < count; i++) {
         gatherers.push_back(new Gatherer(queue, *this->producersQueue));
     }
 }

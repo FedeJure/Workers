@@ -57,7 +57,7 @@ void InventoryQueue::extractMaterialsToProcess(
                 std::vector<Material>& toProcess) {
     std::unique_lock<std::mutex> lock(inventaryMutex);
     for (std::pair<Material, size_t> par : materials) {
-        while (par.second > 0)  {
+        while (par.second > 0) {
             toProcess.push_back(container[par.first].back());
             container[par.first].pop_back();
             par.second--;
