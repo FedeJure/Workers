@@ -1,5 +1,5 @@
 #include "./FarmerQueue.h"
 
-FarmerQueue::FarmerQueue() {
+FarmerQueue::FarmerQueue() : SingleMaterialQueue() {
     container[Wheat];
 }

@@ -2,7 +2,7 @@
 #include "./Gatherer.h"
 
 Gatherer::Gatherer(BlockingQueue& providedQueue,
-            BlockingQueue& inventory) : Worker() {
+            BlockingQueue& inventory) {
     this->inventory = &inventory;
     this->queue = &providedQueue;
     start();

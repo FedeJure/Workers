@@ -1,6 +1,6 @@
 #include "./MinerQueue.h"
 
-MinerQueue::MinerQueue() {
+MinerQueue::MinerQueue() : SingleMaterialQueue() {
     container[Iron];
     container[Coal];
 }

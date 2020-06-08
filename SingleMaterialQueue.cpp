@@ -1,5 +1,7 @@
 #include "./SingleMaterialQueue.h"
 
+SingleMaterialQueue::SingleMaterialQueue() {}
+
 bool SingleMaterialQueue::hasEnoughMaterials(
         std::vector<QueueRequestDto>& materials) {
     std::unique_lock<std::mutex> lock(inventaryMutex);

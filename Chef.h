@@ -2,6 +2,7 @@
 #define CHEF_H_
 #include <vector>
 #include "./Producer.h"
+#include "./Material.h"
 #include "./BenefitPointRepository.h"
 
 class Chef: public Producer {

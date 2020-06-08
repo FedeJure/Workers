@@ -1,5 +1,5 @@
 #include "./WoodcutterQueue.h"
 
-WoodcutterQueue::WoodcutterQueue() {
+WoodcutterQueue::WoodcutterQueue() : SingleMaterialQueue() {
     container[Wood];
 }

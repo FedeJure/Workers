@@ -1,6 +1,8 @@
 #ifndef GATHERER_H_
-#define GATHERER_H_     
+#define GATHERER_H_
+#include <vector>
 #include "./Worker.h"
+#include "./QueueRequestDto.h"
 #include "./BlockingQueue.h"
 class Gatherer: public Worker {
     BlockingQueue* inventory;

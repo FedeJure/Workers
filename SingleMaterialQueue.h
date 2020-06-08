@@ -4,7 +4,10 @@
 class SingleMaterialQueue : public MaterialsQueue {
     protected:
     virtual bool hasEnoughMaterials(
-        std::vector<QueueRequestDto>& materials);
+        std::vector<QueueRequestDto>& materials) override;
+
+    public:
+    SingleMaterialQueue();
 };
 
 #endif
