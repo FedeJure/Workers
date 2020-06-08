@@ -1,21 +1,18 @@
 #ifndef GATHERER_H_
 #define GATHERER_H_     
 #include "./Worker.h"
-#include "./MaterialQueue.h"
-#include "./InventoryQueue.h"
-class MaterialQueue;
+#include "./BlockingQueue.h"
 class Gatherer: public Worker {
-    InventoryQueue* inventory;
-    MaterialQueue* queue;
+    BlockingQueue* inventory;
+    BlockingQueue* queue;
+
+    protected:
+    virtual std::vector<QueueRequestDto> requiredMaterials() = 0;
+
     public:
-    Gatherer(MaterialQueue& providedQueue,
-            InventoryQueue& inventory) : Worker() {
-        this->inventory = &inventory;
-        this->queue = &providedQueue;
-        start();
-    }
-    ~Gatherer() {
-    }
+    Gatherer(BlockingQueue& providedQueue,
+            BlockingQueue& inventory);
+    ~Gatherer();
     virtual void work();
 };
 

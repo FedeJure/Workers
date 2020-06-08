@@ -1,13 +1,17 @@
 #include "./WorkerSpawner.h"
 #include "./Chef.h"
 #include "./Carpenter.h"
+#include "./Gatherer.h"
+#include "./Farmer.h"
+#include "./Woodcutter.h"
+#include "./Miner.h"
 #include "./Weaponsmith.h"
 
-WorkerSpawner::WorkerSpawner(MaterialQueue* FarmerQueue,
-            MaterialQueue* WoodcutterQueue,
-            MaterialQueue* MinerQueue,
+WorkerSpawner::WorkerSpawner(BlockingQueue* FarmerQueue,
+            BlockingQueue* WoodcutterQueue,
+            BlockingQueue* MinerQueue,
             BenefitPointRepository* benefitPoints,
-            InventoryQueue* producersQueue) {
+            BlockingQueue* producersQueue) {
     this->FarmerQueue = FarmerQueue;
     this->WoodcutterQueue = WoodcutterQueue;
     this->MinerQueue = MinerQueue;
@@ -17,38 +21,33 @@ WorkerSpawner::WorkerSpawner(MaterialQueue* FarmerQueue,
 
 void WorkerSpawner::spawnWorkers(int farmers, int woodcutter, int miner,
                                     int chef, int carpenter, int weaponsmith) {
-    spawnWorker(farmers, *FarmerQueue);
-    spawnWorker(woodcutter, *WoodcutterQueue);
-    spawnWorker(miner, *MinerQueue);
-    spawnProducer<Chef>(chef, *producersQueue, *benefitPoints, producers);
-    spawnProducer<Carpenter>
-        (carpenter, *producersQueue, *benefitPoints, producers);
-    spawnProducer<Weaponsmith>
-        (weaponsmith, *producersQueue, *benefitPoints, producers);
-}
-
-void WorkerSpawner::spawnWorker(int count, MaterialQueue& queue) {
-    for (int i = 0; i < count; i++) {
-        gatherers.push_back(new Gatherer(queue, *this->producersQueue));
-    }
+    spawnGatherer<Farmer>(farmers, *FarmerQueue, *producersQueue, gatherers);
+    // spawnGatherer<Woodcutter>
+    //     (woodcutter, *WoodcutterQueue, *producersQueue, gatherers);
+    // spawnGatherer<Miner>(miner, *MinerQueue, *producersQueue, gatherers);
+    // spawnProducer<Chef>(chef, *producersQueue, *benefitPoints, producers);
+    // spawnProducer<Carpenter>
+    //     (carpenter, *producersQueue, *benefitPoints, producers);
+    // spawnProducer<Weaponsmith>
+    //     (weaponsmith, *producersQueue, *benefitPoints, producers);
 }
 
 WorkerSpawner::~WorkerSpawner() {
-    for (Gatherer* g : gatherers) {
+    for (Worker* g : gatherers) {
         delete g;
     }
-    for (Producer* p : producers) {
+    for (Worker* p : producers) {
         delete p;
     }
 }
 
 void WorkerSpawner::waitUntilFinish() {
-    for (Gatherer* g : gatherers) {
+    for (Worker* g : gatherers) {
         g->waitUntilTerminate();
     }
     producersQueue->shutdown();
 
-    for (Producer* p : producers) {
+    for (Worker* p : producers) {
         p->waitUntilTerminate();
     }
 }

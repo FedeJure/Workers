@@ -7,7 +7,7 @@
 #include "./BenefitPointRepository.h"
 class Producer: public Worker {
     BenefitPointRepository* repository;
-    InventoryQueue* inventory;
+    BlockingQueue* inventory;
 
     protected:
     virtual std::vector<QueueRequestDto> requiredMaterials() = 0;
@@ -15,7 +15,7 @@ class Producer: public Worker {
         = 0;
     
     public:
-    Producer(InventoryQueue& providedQueue,
+    Producer(BlockingQueue& providedQueue,
             BenefitPointRepository& repository);
     virtual void work();
     ~Producer();

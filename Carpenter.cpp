@@ -1,7 +1,7 @@
 #include <vector>
 #include "./Carpenter.h"
 
-Carpenter::Carpenter(InventoryQueue& providedQueue,
+Carpenter::Carpenter(BlockingQueue& providedQueue,
     BenefitPointRepository& repository)
     : Producer(providedQueue,repository) {}
 

@@ -1,15 +1,17 @@
 #include <string>
+#include <fstream>
+#include <map>
 #include "./ResourcesProcessor.h"
 
 ResourcesProcessor::ResourcesProcessor(
-        MaterialQueue* FarmerQueue,
-        MaterialQueue* WoodcutterQueue,
-        MaterialQueue* MinerQueue,
+        BlockingQueue* FarmerQueue,
+        BlockingQueue* WoodcutterQueue,
+        BlockingQueue* MinerQueue,
         std::string& fileName) 
     : file(fileName) {
-    this->FarmerQueue = FarmerQueue;
-    this->WoodcutterQueue = WoodcutterQueue;
-    this->MinerQueue = MinerQueue;
+    this->farmerQueue = FarmerQueue;
+    this->woodcutterQueue = WoodcutterQueue;
+    this->minerQueue = MinerQueue;
     process();
 }
 
@@ -23,21 +25,21 @@ void ResourcesProcessor::process() {
         for (uint32_t i = 0; i < line.size(); i++) {
             char readed = line[i];
             if (readed == 'T') {
-                FarmerQueue->push(Wheat);
+                farmerQueue->push(Wheat);
             }
             if (readed == 'M') {
-                WoodcutterQueue->push(Wood);
+                woodcutterQueue->push(Wood);
             }
             if (readed == 'H') {
-                MinerQueue->push(Iron);
+                minerQueue->push(Iron);
             }
             if (readed == 'C') {
-                MinerQueue->push(Coal);
+                minerQueue->push(Coal);
             }
         }
     }
-    FarmerQueue->shutdown();
-    MinerQueue->shutdown();
-    WoodcutterQueue->shutdown();
+    farmerQueue->shutdown();
+    minerQueue->shutdown();
+    woodcutterQueue->shutdown();
     file.close();
 }

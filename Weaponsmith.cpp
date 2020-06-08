@@ -1,7 +1,7 @@
 #include <vector>
 #include "Weaponsmith.h"
 
-Weaponsmith::Weaponsmith(InventoryQueue& providedQueue,
+Weaponsmith::Weaponsmith(BlockingQueue& providedQueue,
     BenefitPointRepository& repository)
     : Producer(providedQueue,repository) {}
 

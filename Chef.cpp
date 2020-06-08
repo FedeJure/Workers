@@ -1,7 +1,7 @@
 #include <vector>
 #include "./Chef.h"
 
-Chef::Chef(InventoryQueue& providedQueue,
+Chef::Chef(BlockingQueue& providedQueue,
     BenefitPointRepository& repository)
     : Producer(providedQueue,repository) {}
 

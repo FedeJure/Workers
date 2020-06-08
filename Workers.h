@@ -2,7 +2,9 @@
 #define WORKERS_H_
 #include <string>
 #include "./InventoryQueue.h"
-#include "./MaterialQueue.h"
+#include "./FarmerQueue.h"
+#include "./MinerQueue.h"
+#include "./WoodcutterQueue.h"
 #include "./WorkerSpawner.h"
 #include "./ResourcesProcessor.h"
 #include "./WorkersProcessor.h"
@@ -10,9 +12,9 @@
 class Workers {
     InventoryQueue inventoryQueue;
     BenefitPointRepository benefitRepository;
-    MaterialQueue farmerQueue;
-    MaterialQueue woodcutterQueue;
-    MaterialQueue minerQueue;
+    FarmerQueue farmerQueue;
+    WoodcutterQueue woodcutterQueue;
+    MinerQueue minerQueue;
     WorkerSpawner workerSpawner;
     ResourcesProcessor resourcesProcessor;
     WorkersFactory workersFactory;

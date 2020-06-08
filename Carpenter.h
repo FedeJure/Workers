@@ -11,7 +11,7 @@ class Carpenter: public Producer {
     virtual BenefitPoints processMaterials(std::vector<Material>& materials);
 
     public:
-    Carpenter(InventoryQueue& providedQueue,
+    Carpenter(BlockingQueue& providedQueue,
             BenefitPointRepository& repository);
 };
 

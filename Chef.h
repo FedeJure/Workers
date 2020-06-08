@@ -2,7 +2,6 @@
 #define CHEF_H_
 #include <vector>
 #include "./Producer.h"
-#include "./InventoryQueue.h"
 #include "./BenefitPointRepository.h"
 
 class Chef: public Producer {
@@ -11,7 +10,7 @@ class Chef: public Producer {
     virtual BenefitPoints processMaterials(std::vector<Material>& materials);
     
     public:
-    Chef(InventoryQueue& providedQueue, BenefitPointRepository& repository);
+    Chef(BlockingQueue& providedQueue, BenefitPointRepository& repository);
 };
 
 #endif

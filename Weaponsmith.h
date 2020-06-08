@@ -11,7 +11,7 @@ class Weaponsmith: public Producer {
     virtual BenefitPoints processMaterials(std::vector<Material>& materials);
 
     public:
-    Weaponsmith(InventoryQueue& providedQueue,
+    Weaponsmith(BlockingQueue& providedQueue,
             BenefitPointRepository& repository);
 };
 

@@ -2,7 +2,7 @@
 #include <utility>
 #include "./Producer.h"
 
-Producer::Producer(InventoryQueue& providedQueue,
+Producer::Producer(BlockingQueue& providedQueue,
                 BenefitPointRepository& repository) {
     this->repository = &repository;
     this->inventory = &providedQueue;
